@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { Sparkles, Loader2, ArrowRight } from 'lucide-vue-next';
+import { Film, Loader2 } from 'lucide-vue-next';
 import { useAuthStore } from '../stores/auth.js';
 import { useMessagesStore } from '../stores/messages.js';
 
@@ -31,50 +31,50 @@ async function handleRegister() {
 </script>
 
 <template>
-  <div class="min-h-[80vh] flex items-center justify-center p-4">
-    <div class="w-full max-w-md bg-dark-surface border border-dark-border/80 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6">
-      <!-- Logo & Title -->
-      <div class="text-center space-y-2">
-        <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-brand-600 to-indigo-500 flex items-center justify-center text-white mx-auto shadow-lg shadow-brand-500/20">
-          <Sparkles class="w-6 h-6" />
+  <div class="min-h-[75vh] flex items-center justify-center p-4">
+    <div class="w-full max-w-sm bg-carbon-900 border border-white/[0.08] rounded-2xl p-6 sm:p-7 shadow-xl space-y-5">
+      <!-- Header -->
+      <div class="space-y-1.5 text-center">
+        <div class="w-8 h-8 rounded-lg bg-carbon-800 border border-white/[0.1] flex items-center justify-center text-amber-500 mx-auto mb-2">
+          <Film class="w-4 h-4" />
         </div>
-        <h1 class="text-2xl font-black text-white tracking-tight">Create an Account</h1>
-        <p class="text-xs text-gray-400">Join Listd and start tracking all your media</p>
+        <h1 class="text-lg font-semibold text-white tracking-tight">Create account</h1>
+        <p class="text-xs text-carbon-400">Initialize your personal media catalog</p>
       </div>
 
       <!-- Error alert -->
-      <div v-if="localError" class="p-3 bg-rose-500/10 border border-rose-500/30 rounded-xl text-xs text-rose-400">
+      <div v-if="localError" class="p-2.5 bg-rose-500/10 border border-rose-500/20 rounded-lg text-xs text-rose-300">
         {{ localError }}
       </div>
 
       <!-- Form -->
-      <form class="space-y-4" @submit.prevent="handleRegister">
+      <form class="space-y-3.5" @submit.prevent="handleRegister">
         <div>
-          <label class="block text-xs font-semibold text-gray-300 mb-1.5">Username</label>
+          <label class="block text-[11px] font-medium text-carbon-300 mb-1">Username</label>
           <input
             v-model="username"
             type="text"
             required
             autocomplete="username"
-            placeholder="e.g. shadow_runner"
-            class="w-full bg-dark-bg border border-dark-border rounded-xl px-4 py-2.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-brand-500 transition-colors"
+            placeholder="Username"
+            class="w-full bg-carbon-950 border border-white/[0.08] focus:border-amber-500/80 rounded-lg px-3 py-2 text-xs text-white placeholder-carbon-500 focus:outline-none transition-colors"
           />
         </div>
 
         <div>
-          <label class="block text-xs font-semibold text-gray-300 mb-1.5">Email Address</label>
+          <label class="block text-[11px] font-medium text-carbon-300 mb-1">Email address</label>
           <input
             v-model="email"
             type="email"
             required
             autocomplete="email"
             placeholder="you@example.com"
-            class="w-full bg-dark-bg border border-dark-border rounded-xl px-4 py-2.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-brand-500 transition-colors"
+            class="w-full bg-carbon-950 border border-white/[0.08] focus:border-amber-500/80 rounded-lg px-3 py-2 text-xs text-white placeholder-carbon-500 focus:outline-none transition-colors"
           />
         </div>
 
         <div>
-          <label class="block text-xs font-semibold text-gray-300 mb-1.5">Password (Min. 6 characters)</label>
+          <label class="block text-[11px] font-medium text-carbon-300 mb-1">Password (6+ characters)</label>
           <input
             v-model="password"
             type="password"
@@ -82,25 +82,24 @@ async function handleRegister() {
             minlength="6"
             autocomplete="new-password"
             placeholder="••••••••"
-            class="w-full bg-dark-bg border border-dark-border rounded-xl px-4 py-2.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-brand-500 transition-colors"
+            class="w-full bg-carbon-950 border border-white/[0.08] focus:border-amber-500/80 rounded-lg px-3 py-2 text-xs text-white placeholder-carbon-500 focus:outline-none transition-colors"
           />
         </div>
 
         <button
           type="submit"
           :disabled="authStore.loading"
-          class="w-full py-2.5 px-4 bg-brand-600 hover:bg-brand-500 disabled:opacity-50 text-white text-sm font-semibold rounded-xl shadow-lg shadow-brand-500/25 transition-all flex items-center justify-center gap-2"
+          class="w-full py-2 px-3 bg-carbon-100 hover:bg-white disabled:opacity-40 text-carbon-950 text-xs font-medium rounded-lg transition-colors flex items-center justify-center gap-1.5 shadow-sm mt-1"
         >
-          <Loader2 v-if="authStore.loading" class="w-4 h-4 animate-spin" />
-          <span>{{ authStore.loading ? 'Creating Account...' : 'Get Started' }}</span>
-          <ArrowRight v-if="!authStore.loading" class="w-4 h-4" />
+          <Loader2 v-if="authStore.loading" class="w-3.5 h-3.5 animate-spin" />
+          <span>{{ authStore.loading ? 'Creating...' : 'Register' }}</span>
         </button>
       </form>
 
       <!-- Bottom link -->
-      <div class="text-center text-xs text-gray-400 pt-2 border-t border-dark-border/40">
+      <div class="text-center text-xs text-carbon-400 pt-3 border-t border-white/[0.06]">
         Already have an account?
-        <router-link to="/login" class="text-brand-400 font-semibold hover:underline ml-1">
+        <router-link to="/login" class="text-white font-medium hover:underline ml-1">
           Sign in
         </router-link>
       </div>

@@ -53,7 +53,7 @@ async function handleSendRequest() {
     newFriendUsername.value = '';
     setTimeout(() => {
       addFriendSuccess.value = false;
-    }, 2500);
+    }, 2000);
   } catch (err: any) {
     addFriendError.value = err.message || 'Failed to send request';
   } finally {
@@ -85,42 +85,40 @@ async function handleQuickAdd(media: MediaItem) {
 </script>
 
 <template>
-  <div class="space-y-8 pb-16">
+  <div class="space-y-7 pb-16">
     <!-- Header -->
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-      <div>
-        <h1 class="text-2xl sm:text-3xl font-bold text-white tracking-tight">Social & Library Comparison</h1>
-        <p class="text-xs sm:text-sm text-gray-400 mt-1">
-          Connect with friends, compare watchlists, and share interactive media recommendations.
-        </p>
-      </div>
+    <div>
+      <h1 class="text-xl sm:text-2xl font-semibold text-white tracking-tight">Social & Comparison</h1>
+      <p class="text-xs text-carbon-400 mt-0.5">
+        Compare library differences and exchange media recommendations
+      </p>
     </div>
 
     <!-- Add Friend Form -->
-    <div class="p-5 bg-dark-surface border border-dark-border/80 rounded-2xl">
-      <h3 class="text-sm font-bold text-white flex items-center gap-2 mb-3">
-        <UserPlus class="w-4 h-4 text-brand-400" />
-        Add Friend by Username
+    <div class="p-4 bg-carbon-900 border border-white/[0.08] rounded-xl max-w-xl">
+      <h3 class="text-xs font-medium text-white flex items-center gap-1.5 mb-2.5">
+        <UserPlus class="w-3.5 h-3.5 text-amber-500" />
+        Connect by username
       </h3>
-      <form class="flex flex-col sm:flex-row gap-2.5 max-w-lg" @submit.prevent="handleSendRequest">
+      <form class="flex flex-col sm:flex-row gap-2" @submit.prevent="handleSendRequest">
         <input
           v-model="newFriendUsername"
           type="text"
-          placeholder="Enter username (e.g. alex_hunter)..."
-          class="flex-1 bg-dark-bg border border-dark-border rounded-xl px-4 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-brand-500"
+          placeholder="Enter username..."
+          class="flex-1 bg-carbon-950 border border-white/[0.08] rounded-lg px-3 py-1.5 text-xs text-white placeholder-carbon-500 focus:outline-none focus:border-amber-500"
         />
         <button
           type="submit"
           :disabled="!newFriendUsername.trim() || addFriendLoading"
-          class="px-5 py-2 bg-brand-600 hover:bg-brand-500 disabled:opacity-50 text-white text-xs font-semibold rounded-xl shadow transition-colors shrink-0"
+          class="px-3.5 py-1.5 bg-carbon-100 hover:bg-white disabled:opacity-40 text-carbon-950 text-xs font-medium rounded-lg transition-colors shrink-0"
         >
-          {{ addFriendLoading ? 'Sending...' : 'Send Request' }}
+          {{ addFriendLoading ? 'Sending...' : 'Send request' }}
         </button>
       </form>
 
       <p v-if="addFriendSuccess" class="text-xs text-emerald-400 mt-2 flex items-center gap-1">
         <Check class="w-3.5 h-3.5" />
-        Friend request sent successfully!
+        Friend request delivered
       </p>
       <p v-if="addFriendError" class="text-xs text-rose-400 mt-2">
         {{ addFriendError }}
@@ -128,77 +126,77 @@ async function handleQuickAdd(media: MediaItem) {
     </div>
 
     <!-- Friends List -->
-    <div class="space-y-4">
-      <h2 class="text-lg font-bold text-white flex items-center gap-2">
-        <Users class="w-5 h-5 text-brand-400" />
-        Your Friends & Connections
-      </h2>
-
-      <div v-if="socialStore.friends.length === 0" class="text-center py-12 p-4 bg-dark-surface/40 border border-dark-border/40 rounded-2xl text-gray-400 text-sm">
-        No friends added yet. Send a friend request above to start comparing libraries!
+    <div class="space-y-3">
+      <div class="flex items-center gap-2 border-b border-white/[0.06] pb-2">
+        <Users class="w-4 h-4 text-carbon-400" />
+        <h2 class="text-sm font-semibold text-white">Contacts</h2>
       </div>
 
-      <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div v-if="socialStore.friends.length === 0" class="text-center py-10 p-4 bg-carbon-900/50 border border-white/[0.06] rounded-xl text-carbon-400 text-xs">
+        No contacts added yet
+      </div>
+
+      <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
         <div
           v-for="friend in socialStore.friends"
           :key="friend.friendshipId"
-          class="p-4 bg-dark-surface border border-dark-border/60 rounded-2xl flex flex-col justify-between gap-4"
+          class="p-3.5 bg-carbon-900 border border-white/[0.08] rounded-xl flex flex-col justify-between gap-3"
         >
           <!-- User info -->
           <div class="flex items-center justify-between">
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-full bg-brand-600/25 border border-brand-500/40 flex items-center justify-center font-bold text-brand-300 uppercase">
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-lg bg-carbon-800 border border-white/[0.08] flex items-center justify-center font-medium text-xs text-carbon-200 uppercase">
                 {{ friend.user.username.charAt(0) }}
               </div>
               <div>
-                <h4 class="font-bold text-sm text-white">{{ friend.user.username }}</h4>
+                <h4 class="font-medium text-xs text-white">{{ friend.user.username }}</h4>
                 <span
-                  class="text-[11px] font-medium"
+                  class="text-[10px] block"
                   :class="[
                     friend.status === 'ACCEPTED'
-                      ? 'text-emerald-400'
-                      : (friend.isIncomingRequest ? 'text-amber-400' : 'text-gray-400')
+                      ? 'text-carbon-400'
+                      : (friend.isIncomingRequest ? 'text-amber-400' : 'text-carbon-500')
                   ]"
                 >
-                  {{ friend.status === 'ACCEPTED' ? 'Friend' : (friend.isIncomingRequest ? 'Incoming Request' : 'Pending Request') }}
+                  {{ friend.status === 'ACCEPTED' ? 'Connected' : (friend.isIncomingRequest ? 'Incoming request' : 'Pending request') }}
                 </span>
               </div>
             </div>
 
             <!-- Incoming request actions -->
-            <div v-if="friend.isIncomingRequest" class="flex items-center gap-1.5">
+            <div v-if="friend.isIncomingRequest" class="flex items-center gap-1">
               <button
-                class="p-1.5 bg-emerald-600/80 hover:bg-emerald-500 text-white rounded-lg transition-colors"
-                title="Accept Request"
+                class="p-1.5 bg-carbon-100 hover:bg-white text-carbon-950 rounded-md transition-colors"
+                title="Accept"
                 @click="socialStore.respondFriendRequest(friend.friendshipId, 'ACCEPT')"
               >
-                <Check class="w-4 h-4" />
+                <Check class="w-3.5 h-3.5" />
               </button>
               <button
-                class="p-1.5 bg-dark-card hover:bg-rose-500/20 text-gray-400 hover:text-rose-400 rounded-lg transition-colors"
+                class="p-1.5 bg-carbon-800 hover:bg-carbon-700 text-carbon-400 hover:text-white rounded-md transition-colors"
                 title="Decline"
                 @click="socialStore.respondFriendRequest(friend.friendshipId, 'DECLINE')"
               >
-                <X class="w-4 h-4" />
+                <X class="w-3.5 h-3.5" />
               </button>
             </div>
           </div>
 
           <!-- Accepted actions -->
-          <div v-if="friend.status === 'ACCEPTED'" class="flex items-center gap-2 pt-2 border-t border-dark-border/40">
+          <div v-if="friend.status === 'ACCEPTED'" class="flex items-center gap-2 pt-2 border-t border-white/[0.06]">
             <button
-              class="flex-1 py-1.5 px-3 text-xs font-semibold bg-brand-600/15 hover:bg-brand-600 text-brand-300 hover:text-white border border-brand-500/30 rounded-xl transition-all flex items-center justify-center gap-1.5"
+              class="flex-1 py-1 px-2.5 text-xs font-medium bg-carbon-800 hover:bg-carbon-700 text-carbon-200 border border-white/[0.08] rounded-lg transition-colors flex items-center justify-center gap-1.5"
               @click="handleCompare(friend.user.id)"
             >
-              <GitCompare class="w-3.5 h-3.5" />
-              Compare Library
+              <GitCompare class="w-3 h-3 text-carbon-400" />
+              <span>Compare</span>
             </button>
             <button
-              class="py-1.5 px-3 text-xs font-semibold bg-dark-card hover:bg-dark-border text-gray-200 border border-dark-border rounded-xl transition-colors flex items-center gap-1.5"
+              class="py-1 px-2.5 text-xs font-medium bg-carbon-800 hover:bg-carbon-700 text-carbon-200 border border-white/[0.08] rounded-lg transition-colors flex items-center gap-1.5"
               @click="openChat(friend.user)"
             >
-              <MessageSquare class="w-3.5 h-3.5 text-brand-400" />
-              Chat
+              <MessageSquare class="w-3 h-3 text-carbon-400" />
+              <span>Chat</span>
             </button>
           </div>
         </div>
@@ -206,62 +204,59 @@ async function handleQuickAdd(media: MediaItem) {
     </div>
 
     <!-- Library Comparison Results ("Friend Diff Engine") -->
-    <div v-if="socialStore.comparisonData" class="space-y-4 p-6 bg-dark-surface border border-brand-500/30 rounded-3xl shadow-xl">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-dark-border">
+    <div v-if="socialStore.comparisonData" class="space-y-3.5 p-5 bg-carbon-900 border border-white/[0.1] rounded-2xl">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-white/[0.06]">
         <div>
-          <span class="text-xs font-semibold text-brand-400 uppercase tracking-wider block">Comparison Engine</span>
-          <h2 class="text-xl font-bold text-white flex items-center gap-2">
-            Titles {{ socialStore.comparisonData.friend.username }} Completed & Loved
+          <span class="text-[10px] font-mono uppercase tracking-wider text-carbon-400 block">Diff Analysis</span>
+          <h2 class="text-sm font-semibold text-white">
+            Completed by {{ socialStore.comparisonData.friend.username }} not yet in your list
           </h2>
-          <p class="text-xs text-gray-400 mt-0.5">
-            That are not in your library or are still in your plan-to-watch queue.
-          </p>
         </div>
 
-        <div class="flex items-center gap-4 text-xs font-medium">
-          <div class="px-3 py-1.5 bg-dark-bg border border-dark-border rounded-xl">
-            <span class="text-gray-400">Total in their library: </span>
-            <span class="text-white font-bold">{{ socialStore.comparisonData.totalFriendItems }}</span>
+        <div class="flex items-center gap-3 text-xs font-mono tabular-nums">
+          <div class="px-2.5 py-1 bg-carbon-950 border border-white/[0.06] rounded-md">
+            <span class="text-carbon-400">Their entries: </span>
+            <span class="text-white">{{ socialStore.comparisonData.totalFriendItems }}</span>
           </div>
-          <div class="px-3 py-1.5 bg-dark-bg border border-dark-border rounded-xl">
-            <span class="text-gray-400">Shared completed: </span>
-            <span class="text-emerald-400 font-bold">{{ socialStore.comparisonData.sharedCompletedCount }}</span>
+          <div class="px-2.5 py-1 bg-carbon-950 border border-white/[0.06] rounded-md">
+            <span class="text-carbon-400">Shared: </span>
+            <span class="text-amber-400">{{ socialStore.comparisonData.sharedCompletedCount }}</span>
           </div>
         </div>
       </div>
 
       <!-- Diff Items List -->
-      <div v-if="socialStore.comparisonData.comparisonList.length === 0" class="text-center py-8 text-gray-400 text-sm">
-        🎉 You are all caught up! You've already consumed everything {{ socialStore.comparisonData.friend.username }} has watched/played.
+      <div v-if="socialStore.comparisonData.comparisonList.length === 0" class="text-center py-8 text-carbon-400 text-xs">
+        No differences found. You have recorded all titles in their completed list.
       </div>
 
-      <div v-else class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2">
+      <div v-else class="grid grid-cols-1 md:grid-cols-2 gap-2.5 pt-1">
         <div
           v-for="item in socialStore.comparisonData.comparisonList"
           :key="item.mediaItem.id"
-          class="p-3 bg-dark-bg border border-dark-border/60 hover:border-brand-500/40 rounded-2xl flex items-center justify-between gap-3 transition-colors"
+          class="p-2.5 bg-carbon-950 border border-white/[0.06] hover:border-white/[0.12] rounded-xl flex items-center justify-between gap-3 transition-colors"
         >
-          <div class="flex items-center gap-3 min-w-0 cursor-pointer" @click="openMedia(item.mediaItem)">
+          <div class="flex items-center gap-2.5 min-w-0 cursor-pointer" @click="openMedia(item.mediaItem)">
             <img
               v-if="item.mediaItem.posterUrl"
               :src="item.mediaItem.posterUrl"
               :alt="item.mediaItem.title"
-              class="w-12 h-16 object-cover rounded-xl shrink-0 shadow"
+              class="w-10 h-14 object-cover rounded shrink-0 shadow-sm"
             />
             <div class="min-w-0">
-              <span class="text-[10px] font-semibold text-brand-400 uppercase tracking-wider block">
+              <span class="text-[9px] font-mono text-carbon-400 uppercase tracking-wider block">
                 {{ item.mediaItem.mediaType }}
               </span>
-              <h4 class="text-sm font-bold text-white truncate hover:text-brand-300 transition-colors">
+              <h4 class="text-xs font-medium text-white truncate">
                 {{ item.mediaItem.title }}
               </h4>
-              <div class="flex items-center gap-2 mt-1 text-xs">
-                <span v-if="item.friendRating" class="flex items-center gap-0.5 text-amber-400 font-medium">
-                  <Star class="w-3 h-3 fill-amber-400" />
+              <div class="flex items-center gap-1.5 mt-0.5 text-xs">
+                <span v-if="item.friendRating" class="flex items-center gap-0.5 text-amber-400 font-mono tabular-nums text-[11px]">
+                  <Star class="w-2.5 h-2.5 fill-amber-400 text-amber-400" />
                   {{ item.friendRating.toFixed(1) }}
                 </span>
-                <span class="text-gray-500">•</span>
-                <span class="text-gray-400 text-[11px] capitalize">
+                <span class="text-carbon-600">•</span>
+                <span class="text-carbon-400 text-[10px] capitalize">
                   {{ item.friendStatus.toLowerCase().replace('_', ' ') }}
                 </span>
               </div>
@@ -269,7 +264,7 @@ async function handleQuickAdd(media: MediaItem) {
           </div>
 
           <!-- Quick Action -->
-          <div class="flex items-center gap-2 shrink-0">
+          <div class="flex items-center gap-1.5 shrink-0">
             <QuickWatchButton
               v-if="item.mediaItem.watchProviders"
               :watch-providers="item.mediaItem.watchProviders"
@@ -277,14 +272,14 @@ async function handleQuickAdd(media: MediaItem) {
             />
             <button
               v-if="item.myStatus === 'NOT_IN_LIBRARY'"
-              class="px-2.5 py-1 text-xs font-semibold bg-brand-600 hover:bg-brand-500 text-white rounded-lg transition-colors flex items-center gap-1 shadow"
+              class="px-2 py-0.5 text-[11px] font-medium bg-carbon-800 hover:bg-carbon-700 text-carbon-200 border border-white/[0.08] rounded transition-colors flex items-center gap-1"
               @click="handleQuickAdd(item.mediaItem)"
             >
-              <Plus class="w-3.5 h-3.5" />
+              <Plus class="w-3 h-3" />
               <span>Add</span>
             </button>
-            <span v-else class="text-[11px] font-medium text-gray-400 px-2">
-              In Plan
+            <span v-else class="text-[10px] font-mono text-carbon-500 px-1.5">
+              Queued
             </span>
           </div>
         </div>

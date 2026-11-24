@@ -89,7 +89,7 @@ async function handleSendRecommendation() {
 
   await messagesStore.sendMessage({
     receiverId: selectedFriendId.value,
-    content: recommendMessage.value.trim() || `I recommend checking out "${props.media.title}"!`,
+    content: recommendMessage.value.trim() || `Recommendation: "${props.media.title}"`,
     mediaItem: props.media,
   });
 
@@ -98,14 +98,14 @@ async function handleSendRecommendation() {
     recommendSent.value = false;
     showFriendPicker.value = false;
     recommendMessage.value = '';
-  }, 1500);
+  }, 1200);
 }
 
 const statusOptions: { value: ItemStatus; label: string }[] = [
-  { value: 'PLAN_TO_CONSUME', label: 'Plan to Watch / Play' },
-  { value: 'IN_PROGRESS', label: 'In Progress' },
+  { value: 'PLAN_TO_CONSUME', label: 'Plan to watch / play' },
+  { value: 'IN_PROGRESS', label: 'In progress' },
   { value: 'COMPLETED', label: 'Completed' },
-  { value: 'ON_HOLD', label: 'On Hold' },
+  { value: 'ON_HOLD', label: 'On hold' },
   { value: 'DROPPED', label: 'Dropped' },
 ];
 </script>
@@ -113,46 +113,46 @@ const statusOptions: { value: ItemStatus; label: string }[] = [
 <template>
   <div
     v-if="isOpen && media"
-    class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-black/80 backdrop-blur-sm transition-opacity"
+    class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-black/85 backdrop-blur-sm"
     @click.self="emit('close')"
   >
     <div
-      class="relative w-full max-w-3xl bg-dark-surface border border-dark-border rounded-2xl shadow-2xl overflow-hidden my-8 max-h-[90vh] flex flex-col"
+      class="relative w-full max-w-2xl bg-carbon-900 border border-white/[0.1] rounded-2xl shadow-2xl overflow-hidden my-8 max-h-[90vh] flex flex-col"
     >
-      <!-- Backdrop image if available -->
-      <div class="relative h-48 sm:h-64 w-full bg-gray-900 shrink-0">
+      <!-- Backdrop image -->
+      <div class="relative h-44 sm:h-56 w-full bg-carbon-950 shrink-0">
         <img
           v-if="media.backdropUrl || media.posterUrl"
           :src="media.backdropUrl || media.posterUrl"
           :alt="media.title"
-          class="w-full h-full object-cover object-center filter brightness-50"
+          class="w-full h-full object-cover object-center filter brightness-40"
         />
-        <div class="absolute inset-0 bg-gradient-to-t from-dark-surface via-dark-surface/60 to-transparent"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-carbon-900 via-carbon-900/60 to-transparent"></div>
 
         <!-- Close button -->
         <button
-          class="absolute top-4 right-4 p-2 bg-black/50 hover:bg-black/80 text-white rounded-full transition-colors z-10"
+          class="absolute top-3.5 right-3.5 p-1.5 bg-carbon-950/70 hover:bg-carbon-950 text-carbon-300 hover:text-white rounded-lg border border-white/[0.08] transition-colors z-10"
           @click="emit('close')"
         >
-          <X class="w-5 h-5" />
+          <X class="w-4 h-4" />
         </button>
 
         <!-- Media Header Info inside banner -->
-        <div class="absolute bottom-4 left-6 right-6 flex items-end gap-4">
+        <div class="absolute bottom-3 left-5 right-5 flex items-end gap-3.5">
           <img
             v-if="media.posterUrl"
             :src="media.posterUrl"
             :alt="media.title"
-            class="w-20 sm:w-28 aspect-[2/3] object-cover rounded-xl shadow-lg border border-dark-border/80 shrink-0"
+            class="w-20 sm:w-24 aspect-[2/3] object-cover rounded-lg border border-white/[0.12] shrink-0"
           />
-          <div class="min-w-0">
-            <span class="text-xs font-semibold uppercase tracking-wider text-brand-400">
+          <div class="min-w-0 pb-1">
+            <span class="text-[11px] font-mono uppercase tracking-wider text-carbon-400 block mb-0.5">
               {{ media.mediaType }}
             </span>
-            <h2 class="text-xl sm:text-2xl font-bold text-white truncate">
+            <h2 class="text-lg sm:text-xl font-semibold text-white truncate">
               {{ media.title }}
             </h2>
-            <p v-if="media.originalTitle && media.originalTitle !== media.title" class="text-xs text-gray-400 truncate">
+            <p v-if="media.originalTitle && media.originalTitle !== media.title" class="text-xs text-carbon-400 truncate">
               {{ media.originalTitle }}
             </p>
           </div>
@@ -160,50 +160,50 @@ const statusOptions: { value: ItemStatus; label: string }[] = [
       </div>
 
       <!-- Scrollable Body -->
-      <div class="p-6 overflow-y-auto space-y-6">
-        <!-- 1-Click Watch & Recommend Actions Bar -->
-        <div class="flex flex-wrap items-center justify-between gap-3 p-4 bg-dark-bg/60 rounded-xl border border-dark-border/40">
-          <div>
-            <span class="text-xs font-medium text-gray-400 block mb-1">Direct Access</span>
+      <div class="p-5 overflow-y-auto space-y-5">
+        <!-- 1-Click Watch & Recommend Bar -->
+        <div class="flex flex-wrap items-center justify-between gap-3 p-3 bg-carbon-950 rounded-xl border border-white/[0.06]">
+          <div class="flex items-center gap-2">
+            <span class="text-xs text-carbon-400">Provider:</span>
             <QuickWatchButton
               v-if="media.watchProviders?.link || media.watchProviders?.providers?.length"
               :watch-providers="media.watchProviders"
             />
-            <span v-else class="text-xs text-gray-500 italic">No direct stream links found</span>
+            <span v-else class="text-xs text-carbon-500 italic">None listed</span>
           </div>
 
           <!-- Recommend to friend trigger -->
           <div class="relative">
             <button
-              class="inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium bg-dark-card hover:bg-dark-border text-gray-200 border border-dark-border rounded-lg transition-colors"
+              class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium bg-carbon-850 hover:bg-carbon-800 text-carbon-200 border border-white/[0.08] rounded-lg transition-colors"
               @click="showFriendPicker = !showFriendPicker"
             >
-              <Send class="w-4 h-4 text-brand-400" />
-              Recommend to Friend
+              <Send class="w-3.5 h-3.5 text-amber-500" />
+              <span>Share card</span>
             </button>
 
             <!-- Friend Picker Dropdown -->
             <div
               v-if="showFriendPicker"
-              class="absolute right-0 bottom-full mb-2 w-72 bg-dark-surface border border-dark-border rounded-xl shadow-xl p-3 z-30 space-y-2.5"
+              class="absolute right-0 bottom-full mb-2 w-72 bg-carbon-850 border border-white/[0.1] rounded-xl shadow-2xl p-3 z-30 space-y-2.5"
             >
               <div class="flex items-center justify-between">
-                <span class="text-xs font-semibold text-gray-300">Share recommendation</span>
-                <button class="text-gray-400 hover:text-white" @click="showFriendPicker = false">
+                <span class="text-xs font-medium text-carbon-200">Send recommendation</span>
+                <button class="text-carbon-400 hover:text-white" @click="showFriendPicker = false">
                   <X class="w-3.5 h-3.5" />
                 </button>
               </div>
 
-              <div v-if="socialStore.friends.length === 0" class="text-xs text-gray-400 py-2">
-                No friends added yet. Add friends from the Social tab!
+              <div v-if="socialStore.friends.length === 0" class="text-xs text-carbon-400 py-1">
+                No friends added yet
               </div>
 
               <div v-else class="space-y-2">
                 <select
                   v-model="selectedFriendId"
-                  class="w-full text-xs bg-dark-bg border border-dark-border rounded-lg p-2 text-white focus:outline-none focus:border-brand-500"
+                  class="w-full text-xs bg-carbon-900 border border-white/[0.1] rounded-lg p-2 text-white focus:outline-none focus:border-amber-500"
                 >
-                  <option value="" disabled>Select a friend</option>
+                  <option value="" disabled>Select contact</option>
                   <option
                     v-for="friend in socialStore.friends.filter(f => f.status === 'ACCEPTED')"
                     :key="friend.user.id"
@@ -216,35 +216,35 @@ const statusOptions: { value: ItemStatus; label: string }[] = [
                 <input
                   v-model="recommendMessage"
                   type="text"
-                  placeholder="Optional comment..."
-                  class="w-full text-xs bg-dark-bg border border-dark-border rounded-lg p-2 text-white placeholder-gray-500 focus:outline-none focus:border-brand-500"
+                  placeholder="Optional note"
+                  class="w-full text-xs bg-carbon-900 border border-white/[0.1] rounded-lg p-2 text-white placeholder-carbon-500 focus:outline-none focus:border-amber-500"
                 />
 
                 <button
                   :disabled="!selectedFriendId"
-                  class="w-full py-1.5 text-xs font-semibold bg-brand-600 hover:bg-brand-500 disabled:opacity-50 text-white rounded-lg transition-colors flex items-center justify-center gap-1"
+                  class="w-full py-1.5 text-xs font-medium bg-carbon-100 hover:bg-white text-carbon-950 rounded-lg transition-colors flex items-center justify-center gap-1"
                   @click="handleSendRecommendation"
                 >
-                  <Check v-if="recommendSent" class="w-3.5 h-3.5 text-emerald-300" />
-                  <span>{{ recommendSent ? 'Recommendation Sent!' : 'Send Card' }}</span>
+                  <Check v-if="recommendSent" class="w-3.5 h-3.5" />
+                  <span>{{ recommendSent ? 'Sent' : 'Send' }}</span>
                 </button>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Synopsis & Tags -->
+        <!-- Overview & Genres -->
         <div>
-          <h4 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Overview</h4>
-          <p class="text-sm text-gray-300 leading-relaxed">
-            {{ media.metadata?.overview || media.metadata?.description || 'No detailed overview available for this title.' }}
+          <h4 class="text-xs font-mono uppercase tracking-wider text-carbon-400 mb-1.5">Overview</h4>
+          <p class="text-xs text-carbon-300 leading-relaxed">
+            {{ media.metadata?.overview || media.metadata?.description || 'No description available.' }}
           </p>
 
-          <div v-if="media.genres?.length" class="flex flex-wrap gap-1.5 mt-3">
+          <div v-if="media.genres?.length" class="flex flex-wrap gap-1.5 mt-2.5">
             <span
               v-for="genre in media.genres"
               :key="genre"
-              class="px-2.5 py-0.5 text-xs bg-dark-card border border-dark-border/50 text-gray-300 rounded-full"
+              class="px-2 py-0.5 text-[11px] bg-carbon-800 text-carbon-300 border border-white/[0.06] rounded"
             >
               {{ genre }}
             </span>
@@ -252,19 +252,19 @@ const statusOptions: { value: ItemStatus; label: string }[] = [
         </div>
 
         <!-- Personal Tracking Form -->
-        <div class="p-5 bg-dark-card/60 border border-dark-border rounded-xl space-y-4">
-          <h4 class="text-sm font-semibold text-white flex items-center gap-2">
-            <Layers class="w-4 h-4 text-brand-400" />
-            Your Library Tracking
+        <div class="p-4 bg-carbon-950 border border-white/[0.06] rounded-xl space-y-3.5">
+          <h4 class="text-xs font-medium text-white flex items-center gap-1.5">
+            <Layers class="w-3.5 h-3.5 text-amber-500" />
+            Tracking Details
           </h4>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <!-- Status -->
             <div>
-              <label class="block text-xs font-medium text-gray-300 mb-1.5">Status</label>
+              <label class="block text-[11px] font-medium text-carbon-400 mb-1">Status</label>
               <select
                 v-model="status"
-                class="w-full bg-dark-bg border border-dark-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-500"
+                class="w-full bg-carbon-900 border border-white/[0.08] rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-amber-500"
               >
                 <option v-for="opt in statusOptions" :key="opt.value" :value="opt.value">
                   {{ opt.label }}
@@ -274,7 +274,7 @@ const statusOptions: { value: ItemStatus; label: string }[] = [
 
             <!-- Score / Rating -->
             <div>
-              <label class="block text-xs font-medium text-gray-300 mb-1.5">Personal Rating (1 - 10)</label>
+              <label class="block text-[11px] font-medium text-carbon-400 mb-1">Score (1 to 10)</label>
               <div class="flex items-center gap-2">
                 <input
                   v-model.number="rating"
@@ -282,32 +282,32 @@ const statusOptions: { value: ItemStatus; label: string }[] = [
                   min="0"
                   max="10"
                   step="0.5"
-                  placeholder="e.g. 8.5"
-                  class="w-full bg-dark-bg border border-dark-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-500"
+                  placeholder="e.g. 8.0"
+                  class="w-full bg-carbon-900 border border-white/[0.08] rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-amber-500 font-mono tabular-nums"
                 />
-                <Star class="w-5 h-5 text-amber-400 fill-amber-400 shrink-0" />
+                <Star class="w-4 h-4 text-amber-500 fill-amber-500 shrink-0" />
               </div>
             </div>
 
             <!-- Progress (Episodes, chapters, hours) -->
             <div>
-              <label class="block text-xs font-medium text-gray-300 mb-1.5">
+              <label class="block text-[11px] font-medium text-carbon-400 mb-1">
                 Progress
-                <span v-if="media.totalUnits" class="text-gray-500">
+                <span v-if="media.totalUnits" class="text-carbon-500 font-mono">
                   (Total: {{ media.totalUnits }})
                 </span>
               </label>
-              <div class="flex items-center gap-2">
+              <div class="flex items-center gap-1.5">
                 <input
                   v-model.number="progressUnits"
                   type="number"
                   min="0"
                   :max="media.totalUnits || undefined"
-                  class="w-full bg-dark-bg border border-dark-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-500"
+                  class="w-full bg-carbon-900 border border-white/[0.08] rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-amber-500 font-mono tabular-nums"
                 />
                 <button
                   type="button"
-                  class="px-3 py-2 bg-brand-600 hover:bg-brand-500 text-white text-xs font-semibold rounded-lg shrink-0"
+                  class="px-2.5 py-1.5 bg-carbon-800 hover:bg-carbon-700 text-carbon-200 border border-white/[0.08] text-xs font-mono font-medium rounded-lg shrink-0"
                   @click="progressUnits++"
                 >
                   +1
@@ -317,56 +317,56 @@ const statusOptions: { value: ItemStatus; label: string }[] = [
 
             <!-- Custom Platform -->
             <div>
-              <label class="block text-xs font-medium text-gray-300 mb-1.5">Platform / Service</label>
+              <label class="block text-[11px] font-medium text-carbon-400 mb-1">Platform or service</label>
               <input
                 v-model="customPlatform"
                 type="text"
-                placeholder="e.g. Steam, Netflix, PS5, Crunchyroll"
-                class="w-full bg-dark-bg border border-dark-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-500"
+                placeholder="e.g. Steam, Netflix, PS5"
+                class="w-full bg-carbon-900 border border-white/[0.08] rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-amber-500"
               />
             </div>
           </div>
 
           <!-- Notes -->
           <div>
-            <label class="block text-xs font-medium text-gray-300 mb-1.5">Personal Notes & Thoughts</label>
+            <label class="block text-[11px] font-medium text-carbon-400 mb-1">Notes</label>
             <textarea
               v-model="notes"
               rows="2"
-              placeholder="Add your review, thoughts, or reminders..."
-              class="w-full bg-dark-bg border border-dark-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-500"
+              placeholder="Personal thoughts or review notes"
+              class="w-full bg-carbon-900 border border-white/[0.08] rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-amber-500"
             ></textarea>
           </div>
         </div>
       </div>
 
       <!-- Modal Footer -->
-      <div class="p-4 sm:p-6 bg-dark-bg border-t border-dark-border flex items-center justify-between gap-3 shrink-0">
+      <div class="p-4 bg-carbon-950 border-t border-white/[0.06] flex items-center justify-between gap-3 shrink-0">
         <button
           v-if="libraryItem"
           type="button"
-          class="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-rose-400 hover:text-rose-300 hover:bg-rose-500/10 rounded-lg transition-colors"
+          class="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium text-rose-400 hover:text-rose-300 transition-colors"
           @click="handleDelete"
         >
-          <Trash2 class="w-4 h-4" />
-          Remove from Library
+          <Trash2 class="w-3.5 h-3.5" />
+          <span>Remove</span>
         </button>
         <div v-else></div>
 
-        <div class="flex items-center gap-2.5">
+        <div class="flex items-center gap-2">
           <button
             type="button"
-            class="px-4 py-2 text-xs font-medium text-gray-300 hover:text-white rounded-lg transition-colors"
+            class="px-3 py-1.5 text-xs text-carbon-400 hover:text-white transition-colors"
             @click="emit('close')"
           >
             Cancel
           </button>
           <button
             type="button"
-            class="px-5 py-2 text-xs font-semibold bg-brand-600 hover:bg-brand-500 text-white rounded-lg shadow-md transition-colors"
+            class="px-4 py-1.5 text-xs font-medium bg-carbon-100 hover:bg-white text-carbon-950 rounded-lg transition-colors shadow-sm"
             @click="handleSave"
           >
-            {{ libraryItem ? 'Save Changes' : 'Add to Library' }}
+            {{ libraryItem ? 'Save' : 'Add to library' }}
           </button>
         </div>
       </div>

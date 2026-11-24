@@ -4,7 +4,12 @@
 
 @layer base {
   body {
-    @apply bg-dark-bg text-gray-100 font-sans antialiased;
+    background-color: #090B0F;
+    color: #E6E8EC;
+    font-family: Inter, system-ui, -apple-system, sans-serif;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
 

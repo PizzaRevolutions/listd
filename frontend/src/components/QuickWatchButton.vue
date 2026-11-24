@@ -21,9 +21,9 @@ const watchUrl = computed(() => {
 
 const label = computed(() => {
   if (primaryProvider.value) {
-    return `Watch on ${primaryProvider.value.name}`;
+    return primaryProvider.value.name;
   }
-  return '1-Click Watch / Play';
+  return 'Watch / Play';
 });
 </script>
 
@@ -33,11 +33,11 @@ const label = computed(() => {
     :href="watchUrl"
     target="_blank"
     rel="noopener noreferrer"
-    class="inline-flex items-center gap-1.5 font-medium transition-all duration-200 rounded-lg shadow-sm"
+    class="inline-flex items-center gap-1.5 font-medium transition-colors rounded-md border border-white/[0.12] bg-carbon-900/90 hover:bg-carbon-800 text-carbon-100"
     :class="[
       compact
-        ? 'px-2 py-1 text-xs bg-brand-600 hover:bg-brand-500 text-white'
-        : 'px-3.5 py-2 text-sm bg-brand-600 hover:bg-brand-500 text-white hover:shadow-brand-500/25 hover:shadow-md'
+        ? 'px-2 py-0.5 text-[11px]'
+        : 'px-3 py-1.5 text-xs'
     ]"
     @click.stop
   >
@@ -47,8 +47,8 @@ const label = computed(() => {
       :alt="primaryProvider.name"
       class="w-3.5 h-3.5 rounded object-cover"
     />
-    <Play v-else class="w-3.5 h-3.5 fill-current" />
+    <Play v-else class="w-3 h-3 fill-current text-amber-500" />
     <span class="truncate">{{ label }}</span>
-    <ExternalLink class="w-3 h-3 opacity-70 ml-0.5" />
+    <ExternalLink class="w-3 h-3 opacity-50 ml-0.5" />
   </a>
 </template>

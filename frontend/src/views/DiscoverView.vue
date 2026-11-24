@@ -8,8 +8,7 @@ import {
   BookOpen, 
   Gamepad2, 
   Music, 
-  Loader2, 
-  Compass 
+  Loader2 
 } from 'lucide-vue-next';
 import { searchTMDB } from '../api/external/tmdb.js';
 import { searchAniList } from '../api/external/anilist.js';
@@ -35,18 +34,17 @@ const isModalOpen = ref(false);
 let debounceTimer: any = null;
 
 const categories: { key: SearchCategory; label: string; icon: any; placeholder: string }[] = [
-  { key: 'movie', label: 'Movies', icon: Film, placeholder: 'Search movies (e.g. Interstellar, Dune)...' },
-  { key: 'tv', label: 'TV Shows', icon: Tv, placeholder: 'Search series (e.g. Breaking Bad, Arcane)...' },
-  { key: 'anime', label: 'Anime', icon: Sparkles, placeholder: 'Search anime (e.g. Attack on Titan, Frieren)...' },
-  { key: 'manga', label: 'Manga', icon: BookOpen, placeholder: 'Search manga (e.g. Berserk, One Piece)...' },
-  { key: 'game', label: 'Video Games', icon: Gamepad2, placeholder: 'Search games (e.g. Elden Ring, Zelda)...' },
-  { key: 'music', label: 'Music', icon: Music, placeholder: 'Search albums or artists (e.g. Daft Punk)...' },
+  { key: 'movie', label: 'Movies', icon: Film, placeholder: 'Search films (e.g. Interstellar, Dune)' },
+  { key: 'tv', label: 'TV Shows', icon: Tv, placeholder: 'Search series (e.g. Breaking Bad, Arcane)' },
+  { key: 'anime', label: 'Anime', icon: Sparkles, placeholder: 'Search anime (e.g. Attack on Titan, Frieren)' },
+  { key: 'manga', label: 'Manga', icon: BookOpen, placeholder: 'Search manga (e.g. Berserk, One Piece)' },
+  { key: 'game', label: 'Video Games', icon: Gamepad2, placeholder: 'Search games (e.g. Elden Ring, Zelda)' },
+  { key: 'music', label: 'Music', icon: Music, placeholder: 'Search albums or artists (e.g. Daft Punk)' },
 ];
 
 async function performSearch() {
   const q = searchQuery.value.trim();
   if (!q) {
-    // If empty, load default sample
     loadDefaults();
     return;
   }
@@ -139,58 +137,54 @@ function handleAdd(media: Partial<MediaItem>) {
 <template>
   <div class="space-y-6 pb-16">
     <!-- Header -->
-    <div class="space-y-2">
-      <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-400 text-xs font-semibold">
-        <Compass class="w-3.5 h-3.5" />
-        Live API Catalog Search
-      </div>
-      <h1 class="text-2xl sm:text-3xl font-bold text-white tracking-tight">
-        Discover & Add Media
+    <div>
+      <h1 class="text-xl sm:text-2xl font-semibold text-white tracking-tight">
+        Discover
       </h1>
-      <p class="text-xs sm:text-sm text-gray-400">
-        Search across official standard APIs (TMDB, AniList, RAWG, iTunes/Spotify) with live streaming providers.
+      <p class="text-xs text-carbon-400 mt-0.5">
+        Query TMDB, AniList, RAWG and Apple Music standard catalogs
       </p>
     </div>
 
     <!-- Category selector tabs -->
-    <div class="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
+    <div class="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
       <button
         v-for="cat in categories"
         :key="cat.key"
-        class="flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all border"
+        class="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors border"
         :class="[
           activeCategory === cat.key
-            ? 'bg-brand-600 text-white border-brand-500 shadow-md shadow-brand-500/20'
-            : 'bg-dark-surface border-dark-border/60 text-gray-300 hover:text-white hover:bg-dark-card'
+            ? 'bg-carbon-800 text-white border-white/[0.12]'
+            : 'bg-carbon-900 border-white/[0.06] text-carbon-400 hover:text-white hover:bg-carbon-850'
         ]"
         @click="activeCategory = cat.key"
       >
-        <component :is="cat.icon" class="w-3.5 h-3.5" />
+        <component :is="cat.icon" class="w-3.5 h-3.5 text-carbon-400" />
         <span>{{ cat.label }}</span>
       </button>
     </div>
 
     <!-- Live Search Input -->
     <div class="relative">
-      <Search class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+      <Search class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-carbon-500" />
       <input
         v-model="searchQuery"
         type="text"
         :placeholder="categories.find(c => c.key === activeCategory)?.placeholder"
-        class="w-full bg-dark-surface border border-dark-border/80 focus:border-brand-500 rounded-2xl pl-12 pr-12 py-3.5 text-sm text-white placeholder-gray-500 focus:outline-none shadow-xl transition-all"
+        class="w-full bg-carbon-900 border border-white/[0.08] focus:border-amber-500/80 rounded-xl pl-10 pr-10 py-2.5 text-xs text-white placeholder-carbon-500 focus:outline-none transition-colors"
       />
-      <div v-if="isSearching" class="absolute right-4 top-1/2 -translate-y-1/2">
-        <Loader2 class="w-5 h-5 text-brand-400 animate-spin" />
+      <div v-if="isSearching" class="absolute right-3.5 top-1/2 -translate-y-1/2">
+        <Loader2 class="w-4 h-4 text-carbon-400 animate-spin" />
       </div>
     </div>
 
     <!-- Search Results Grid -->
     <div>
-      <div v-if="searchResults.length === 0 && !isSearching" class="text-center py-16 text-gray-500 text-sm">
-        No results found. Try searching for a different keyword.
+      <div v-if="searchResults.length === 0 && !isSearching" class="text-center py-14 text-carbon-500 text-xs">
+        No results found
       </div>
 
-      <div v-else class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+      <div v-else class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
         <MediaCard
           v-for="media in searchResults"
           :key="media.externalId"
