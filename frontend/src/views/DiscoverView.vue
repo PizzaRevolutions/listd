@@ -10,7 +10,7 @@ import {
   Music, 
   Loader2 
 } from 'lucide-vue-next';
-import { searchTMDB } from '../api/external/tmdb.js';
+import { searchTMDB, getTMDBDetails } from '../api/external/tmdb.js';
 import { searchAniList } from '../api/external/anilist.js';
 import { searchRAWG } from '../api/external/rawg.js';
 import { searchMusic } from '../api/external/spotify.js';
@@ -124,9 +124,19 @@ onMounted(() => {
   loadDefaults();
 });
 
-function openDetail(media: Partial<MediaItem>) {
+async function openDetail(media: Partial<MediaItem>) {
   selectedMedia.value = media;
   isModalOpen.value = true;
+
+  if (media.externalSource === 'omdb' || media.externalSource === 'tvmaze' || media.externalSource === 'tmdb') {
+    if (media.externalId && (!media.metadata?.overview || !media.metadata?.runtime)) {
+      const type = media.mediaType === 'TV' ? 'tv' : 'movie';
+      const full = await getTMDBDetails(media.externalId, type);
+      if (full) {
+        selectedMedia.value = { ...media, ...full };
+      }
+    }
+  }
 }
 
 function handleAdd(media: Partial<MediaItem>) {
