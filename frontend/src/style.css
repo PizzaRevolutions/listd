@@ -2,15 +2,46 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Font face definitions for GillSansMTProCyr-Medium with local fallbacks and bundled asset */
+@font-face {
+  font-family: 'GillSansMTProCyr-Medium';
+  src: local('GillSansMTProCyr-Medium'),
+       local('Gill Sans MT Pro Cyr Medium'),
+       local('Gill Sans MT Pro Cyr'),
+       local('Gill Sans MT Pro Medium'),
+       local('Gill Sans MT'),
+       url('/fonts/GillSansMT.ttf') format('truetype');
+  font-weight: 300 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GillSansMTProCyr-Medium';
+  src: local('GillSansMTProCyr-Bold'),
+       local('Gill Sans MT Pro Cyr Bold'),
+       local('Gill Sans MT Pro Bold'),
+       local('Gill Sans MT Bold'),
+       url('/fonts/GillSansMT-Bold.ttf') format('truetype');
+  font-weight: 600 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 @layer base {
   body {
     background-color: #000000;
     color: #FFFFFF;
-    font-family: Inter, system-ui, -apple-system, sans-serif;
-    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    font-family: 'GillSansMTProCyr-Medium', 'Gill Sans MT Pro Cyr', 'Gill Sans MT', 'Gill Sans', Inter, system-ui, -apple-system, sans-serif;
+    letter-spacing: -0.01em;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'GillSansMTProCyr-Medium', 'Gill Sans MT Pro Cyr', 'Gill Sans MT', 'Gill Sans', sans-serif;
+    letter-spacing: -0.02em;
   }
 }
 

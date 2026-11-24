@@ -51,8 +51,16 @@ Listd offre un'esperienza su misura per entrambi i formati senza compromettere l
 
 ---
 
-## 3. Tipografia Two-Tone di Sezione
+## 3. Tipografia & Font Family
 
+### Carattere Primario: `GillSansMTProCyr-Medium`
+Tutte le intestazioni, i testi di interfaccia, i pulsanti e le card adottano **`GillSansMTProCyr-Medium`** (famiglia Gill Sans MT Pro Cyrillic / Gill Sans MT):
+```css
+font-family: 'GillSansMTProCyr-Medium', 'Gill Sans MT Pro Cyr', 'Gill Sans MT', 'Gill Sans', sans-serif;
+```
+Fornito come webfont tramite asset bundled (`/fonts/GillSansMT.ttf` e `GillSansMT-Bold.ttf`) e con riconoscimento dei font di sistema locali.
+
+### Intestazioni Two-Tone di Sezione
 - **Riga 1 (Contesto / Premessa)**:
   - Mobile: `text-zinc-400 text-lg font-normal leading-tight tracking-tight`
   - Desktop: `text-zinc-400 text-xl font-normal leading-tight tracking-tight`

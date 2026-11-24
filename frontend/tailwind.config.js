@@ -48,8 +48,26 @@ export default {
         '4xl': '1.75rem',  // 28px
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
-        display: ['Inter', 'system-ui', 'sans-serif'],
+        sans: [
+          'GillSansMTProCyr-Medium',
+          '"Gill Sans MT Pro Cyr"',
+          '"Gill Sans MT"',
+          '"Gill Sans"',
+          'Inter',
+          'system-ui',
+          '-apple-system',
+          'BlinkMacSystemFont',
+          'Segoe UI',
+          'Roboto',
+          'sans-serif'
+        ],
+        display: [
+          'GillSansMTProCyr-Medium',
+          '"Gill Sans MT Pro Cyr"',
+          '"Gill Sans MT"',
+          '"Gill Sans"',
+          'sans-serif'
+        ],
         mono: ['JetBrains Mono', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'monospace'],
       }
     },
