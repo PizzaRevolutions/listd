@@ -1,29 +1,47 @@
-# Listd (`Ld.`) — Design System & UI Specification
+# Listd (`Ld.`) — Responsive Design System & Layout Specification
 
-Questo documento definisce il linguaggio visivo, i token di stile, i componenti e l'architettura dell'interfaccia di **Listd** (`Ld.`), ricavati fedelmente dal concept mobile ad alto contrasto dark mode.
+Questo documento definisce il linguaggio visivo, i token e l'architettura responsive (Mobile & Desktop) di **Listd** (`Ld.`).
 
 ---
 
-## 1. Filosofia Visiva & Atmosfera
+## 1. Filosofia Responsive: Mobile-First + Desktop-Native
 
-- **Pitch Black Canvas (`#000000`)**: Fondo nero assoluto privo di gradienti pesanti, studiato per schermi OLED/AMOLED per massimizzare la leggibilità, l'immersione cinematografica e ridurre il consumo energetico.
-- **Dark Charcoal Elevation (`#121316` / `#16171B`)**: Le card e i contenitori interattivi galleggiano sul nero assoluto tramite una superficie antracite profonda, con bordi ultra-sottili (`rgba(255, 255, 255, 0.06)`–`0.08`).
-- **High-Radius Modern Geometry (20px - 26px)**: Card, pulsanti a pillola e dock di navigazione adottano curve morbide (`rounded-2xl` e `rounded-full`), donando un'esperienza tattile e contemporanea.
-- **Tipografia Two-Tone a Contrasto**: Le intestazioni di sezione impiegano una gerarchia bimodale:
-  - *Prima riga (contesto/ambientazione)*: Peso regular/light, grigio medio (`#9CA3AF` / `text-zinc-400`).
-  - *Seconda riga (call-to-action / punchline)*: Peso bold/extrabold, bianco puro (`#FFFFFF`).
+Listd offre un'esperienza su misura per entrambi i formati senza compromettere l'identità grafica:
+
+### Mobile Experience (< 768px, `sm`)
+- **Top Bar Compatta**:
+  - Sinistra: Pillola `+ Add to your list`.
+  - Centro: Logo **`Ld.`** in display font geometrico.
+  - Destra: Campanello notifiche con punto rosso (`accent-red`).
+- **Hero Centrato**:
+  - Avatar circolare con anello (`ring-2 ring-white/20`), saluto `Hi, <Username>` e sottotitolo `there are some news.`.
+- **Caroselli Orizzontali a Scorrimento Naturale**:
+  - Card con bordi ultra-arrotondati (`rounded-[22px]`) scorrevoli via touch swipe con scrollbar nascosta.
+- **Floating Bottom Dock**:
+  - Barra dock fluttuante ancorata in basso con 5 icone (Home, Friends, Discover, Library, Profilo).
+
+### Desktop Experience (≥ 768px, `md:` e `lg:`)
+- **Top Desktop Navbar Completa**:
+  - Sinistra: Brand wordmark **`Ld.`** + Search bar trigger rapida (`Search catalog...`).
+  - Centro: Links di navigazione desktop con icone e label testuali (`Home`, `Library`, `Discover`, `Social`).
+  - Destra: Pill button `+ Add to your list`, campanello notifiche con popover e menu profilo utente completo (avatar, username, impostazioni, sign out).
+- **Dock Mobile Nascosta (`md:hidden`)**:
+  - Su desktop la barra dock fluttuante inferiore viene rimossa per garantire una visualizzazione pulita senza occlusioni.
+- **Container Widescreen (`max-w-7xl`)**:
+  - Il layout espande la larghezza da `max-w-4xl` a `max-w-7xl` con griglie fluide da 4 a 6 colonne (`md:grid-cols-4 lg:grid-cols-6`).
+- **Hero Dashboard Desktop**:
+  - Visualizzazione espansa con statistiche d'archivio in pillole (voci in corso, completate, pianificate, contatti), pulsanti di navigazione rapida e caroselli con controlli freccia (Prev/Next).
 
 ---
 
 ## 2. Palette Colori & Design Tokens
 
-### Colori Fondamentali
 | Token | HEX / Valore | Ruolo nel layout |
 | :--- | :--- | :--- |
 | `canvas-black` | `#000000` | Sfondo primario globale dell'app |
 | `surface-charcoal` | `#121316` | Superficie card, modal, container |
 | `surface-hover` | `#1A1B20` | Stato hover su card e container |
-| `pill-surface` | `#16171B` | Sfondo pulsanti pillola (`+ Add to your list`, pill active) |
+| `pill-surface` | `#16171B` | Sfondo pulsanti pillola (`+ Add to your list`, nav pills) |
 | `border-subtle` | `rgba(255, 255, 255, 0.08)` | Delimitatori leggeri su card e pillole |
 | `text-pure-white` | `#FFFFFF` | Testo primario, punchline di sezione, logo |
 | `text-muted` | `#9CA3AF` | Sottotitoli, prima riga delle sezioni, metadati |
@@ -33,78 +51,30 @@ Questo documento definisce il linguaggio visivo, i token di stile, i componenti 
 
 ---
 
-## 3. Brand & Typography
+## 3. Tipografia Two-Tone di Sezione
 
-### Logo: `Ld.`
-- Wordmark minimalista, bold e geometrico: lettere minuscole/maiuscole compatte seguite da punto fermo (**`Ld.`**).
-- Posizionato al centro esatto della barra superiore, bilanciato a sinistra dal tasto d'azione rapida e a destra dall'icona notifiche.
-
-### Scale Tipografiche
-- **Logo Wordmark**: `font-black text-2xl tracking-tighter text-white font-sans`
-- **Two-Tone Section Header**:
-  - Line 1: `text-zinc-400 text-lg sm:text-xl font-normal leading-tight tracking-tight`
-  - Line 2: `text-white text-xl sm:text-2xl font-bold leading-tight tracking-tight`
-- **Greeting Hero**:
-  - `Hi, <Username>`: `text-xl sm:text-2xl font-semibold text-white tracking-tight`
-  - `there are some news.`: `text-sm text-zinc-400 font-normal`
-- **Card Titles**: `text-sm font-medium text-white line-clamp-1`
-- **Card Subtext / Metadati**: `text-xs font-mono text-zinc-400`
+- **Riga 1 (Contesto / Premessa)**:
+  - Mobile: `text-zinc-400 text-lg font-normal leading-tight tracking-tight`
+  - Desktop: `text-zinc-400 text-xl font-normal leading-tight tracking-tight`
+- **Riga 2 (Call-to-Action / Punchline)**:
+  - Mobile: `text-white text-xl font-bold leading-tight tracking-tight`
+  - Desktop: `text-white text-2xl sm:text-3xl font-extrabold leading-tight tracking-tight`
 
 ---
 
-## 4. Componenti Chiave
+## 4. Specifiche Componenti Desktop
 
-### 4.1. Top Navigation Bar
-- **Pulsante Sinistro (`+ Add to your list`)**:
-  - Capsule `rounded-full`, padding `px-4 py-2`, font `text-xs sm:text-sm font-medium`.
-  - Icona `Plus` (14px) + testo. Conduce direttamente alla schermata di ricerca/aggiunta (`/discover`).
-- **Centro**: Logo **`Ld.`** perfettamente allineato.
-- **Pulsante Destro (Notifiche)**:
-  - Icona `Bell` (20px) con indicatore a punto rosso brillante (`w-2 h-2 rounded-full bg-red-500 absolute top-0.5 right-0.5 ring-2 ring-black`).
+### 4.1 Navbar Superiore Desktop
+```
+[ Ld. ]  [ Search catalog... 🔍 ]        [ 🏠 Home ] [ 📚 Library ] [ 🧭 Discover ] [ 👥 Social ]        [ + Add to your list ]  [ 🔔 ]  [ (👤 Profile ▾) ]
+```
 
-### 4.2. Hero Greeting del Profilo (Centrato)
-- **Avatar circolare**:
-  - Diametro `72px–80px` (`w-20 h-20`), bordo circolare ad anello (`ring-2 ring-white/20`).
-  - Immagine profilo personalizzata (manga/sketch o foto utente con fallback iniziale ad alta risoluzione).
-- **Testo di Benvenuto**:
-  - Centrato direttamente sotto l'avatar:
-    ```html
-    <div class="text-center mt-3">
-      <h1 class="text-xl sm:text-2xl font-semibold text-white">Hi, {{ username }}</h1>
-      <p class="text-sm text-zinc-400 mt-0.5">there are some news.</p>
-    </div>
-    ```
+### 4.2 Home View Desktop
+- Banner di benvenuto con avatar utente, saluto e badge statistici (Total, In Progress, Completed, Planned).
+- Sezione 1: "News on fictions you liked" (Carousel con frecce di navigazione desktop sinistra/destra).
+- Sezione 2: "Your friends have watched/read these" / **"but you haven't"** (Friend Diff Carousel).
+- Sezione 3: "Your followers started some discussions" / **"do you mind joining?"** (Griglia a 3 colonne su desktop).
 
-### 4.3. Sezioni Home a Scorrimento Orizzontale
-1. **"News on fictions you liked"**:
-   - Carousel orizzontale con titoli che l'utente sta seguendo o ha completato e che presentano aggiornamenti (nuovi episodi/capitoli o news).
-2. **"Your friends have watched/read these" / "but you haven't"**:
-   - Carousel orizzontale alimentato dal motore di Friend Comparison ("Friend Diff"), mostrando titoli popolari tra gli amici che l'utente non ha ancora nella propria libreria.
-3. **"Your followers started some discussions" / "do you mind joining?"**:
-   - Card interattive per le discussioni e i messaggi diretti con consigli multimediali da parte della community e amici.
-
-### 4.4. Media Card (Stile Ld.)
-- Dimensioni: `w-40 sm:w-48` in visualizzazione a carosello orizzontale, o griglia fluida.
-- Raggio di curvatura: `rounded-[22px]`.
-- Superficie: `bg-[#121316] border border-white/[0.06] hover:border-white/[0.16]`.
-- Poster cinematografico con angoli curvi superiori, badge tipo media (Film, TV, Anime, Manga, Game, Music) e rating su layer trasparente.
-- Overlay d'azione rapida: pulsante "1-Click Watch/Play" + avanzamento rapido (`+1 ep` / `+1 ch`).
-
-### 4.5. Floating Bottom Navigation Dock
-Dock orizzontale fluttuante ancorato alla parte inferiore dello schermo:
-- Sfondo: `#121316` con bordi `rounded-full` (capsule dock) e sfocatura `backdrop-blur-xl`.
-- 5 Icone essenziali:
-  1. **Home / Dashboard**: Icona `Home` in capsula attiva (`bg-white/10 rounded-full px-4 py-2`).
-  2. **Social / Friends**: Icona `Users` (Community & Friend Library Diff).
-  3. **Search / Discover**: Icona `Search` (Catalogo unificato & Aggiunte).
-  4. **Library**: Icona `List` (Libreria personale & Tracking).
-  5. **Profile**: Mini avatar circolare dell'utente loggato.
-
----
-
-## 5. Responsive Strategy
-- **Mobile First**: L'interfaccia rispecchia nativamente lo screen mobile fornito, ideale per PWA e wrapper Capacitor (iOS/Android).
-- **Desktop / Tablet**:
-  - Il container centrale si estende fino a `max-w-4xl` mantenendo l'esperienza focalizzata e pulita.
-  - La barra superiore mantiene il layout iconico (Pill a sinistra, logo `Ld.` al centro, Notifiche a destra).
-  - La dock inferiore fluttua elegantemente centratata in basso o si sincronizza per un'esperienza d'uso fluida.
+### 4.3 Pagine Catalog, Library e Social Desktop
+- Griglie responsive `grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4`.
+- Barra di ricerca, filtri per categoria e status integrati su un'unica linea orizzontale compatta.

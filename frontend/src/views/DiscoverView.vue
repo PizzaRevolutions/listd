@@ -184,7 +184,7 @@ function handleAdd(media: Partial<MediaItem>) {
         No results found
       </div>
 
-      <div v-else class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+      <div v-else class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
         <MediaCard
           v-for="media in searchResults"
           :key="media.externalId"
