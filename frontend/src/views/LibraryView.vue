@@ -55,55 +55,55 @@ async function handleIncrement(item: UserLibraryItem) {
 </script>
 
 <template>
-  <div class="space-y-6 pb-16">
+  <div class="space-y-6 pb-20">
     <!-- Header -->
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div class="flex items-center justify-between gap-4 px-1">
       <div>
-        <h1 class="text-xl sm:text-2xl font-semibold text-white tracking-tight">Library</h1>
-        <p class="text-xs text-carbon-400 mt-0.5">
+        <h1 class="text-2xl font-bold text-white tracking-tight">Your Library</h1>
+        <p class="text-xs text-zinc-400 mt-0.5">
           {{ libraryStore.filteredItems.length }} titles recorded
         </p>
       </div>
 
       <router-link
         to="/discover"
-        class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-carbon-100 hover:bg-white text-carbon-950 text-xs font-medium rounded-lg shadow-sm transition-colors self-start sm:self-auto"
+        class="inline-flex items-center gap-1.5 px-4 py-2 bg-white text-black hover:bg-zinc-200 text-xs font-semibold rounded-full shadow-sm transition-all active:scale-95"
       >
         <Plus class="w-3.5 h-3.5" />
         <span>Add title</span>
       </router-link>
     </div>
 
-    <!-- Category Filter Bar -->
-    <div class="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
+    <!-- Category Filter Pills -->
+    <div class="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none -mx-4 px-4 sm:mx-0 sm:px-0">
       <button
         v-for="cat in mediaCategories"
         :key="cat.type"
-        class="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors border"
+        class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-all border active:scale-95"
         :class="[
           libraryStore.selectedType === cat.type
-            ? 'bg-carbon-800 text-white border-white/[0.12]'
-            : 'bg-carbon-900 border-white/[0.06] text-carbon-400 hover:text-white hover:bg-carbon-850'
+            ? 'bg-white text-black border-white'
+            : 'bg-[#16171B] border-white/[0.08] text-zinc-400 hover:text-white hover:bg-[#202227]'
         ]"
         @click="libraryStore.selectedType = cat.type"
       >
-        <component :is="cat.icon" class="w-3.5 h-3.5 text-carbon-400" />
+        <component :is="cat.icon" class="w-3.5 h-3.5" />
         <span>{{ cat.label }}</span>
       </button>
     </div>
 
-    <!-- Status Tabs & Filter -->
-    <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 p-2.5 bg-carbon-900 border border-white/[0.06] rounded-xl">
+    <!-- Status Tabs & Search Bar -->
+    <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 p-3 bg-[#121316] border border-white/[0.06] rounded-[20px]">
       <!-- Status Tabs -->
       <div class="flex items-center gap-1 overflow-x-auto pb-1 sm:pb-0 scrollbar-none">
         <button
           v-for="tab in statusTabs"
           :key="tab.status"
-          class="px-2.5 py-1 rounded-md text-xs font-medium whitespace-nowrap transition-colors"
+          class="px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap transition-colors"
           :class="[
             libraryStore.selectedStatus === tab.status
-              ? 'bg-carbon-800 text-white'
-              : 'text-carbon-400 hover:text-carbon-200'
+              ? 'bg-white/10 text-white'
+              : 'text-zinc-400 hover:text-white'
           ]"
           @click="libraryStore.selectedStatus = tab.status"
         >
@@ -112,13 +112,13 @@ async function handleIncrement(item: UserLibraryItem) {
       </div>
 
       <!-- Search Input within Library -->
-      <div class="relative w-full sm:w-60 shrink-0">
-        <Search class="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-carbon-500" />
+      <div class="relative w-full sm:w-64 shrink-0">
+        <Search class="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-zinc-400" />
         <input
           v-model="libraryStore.searchQuery"
           type="text"
           placeholder="Filter titles..."
-          class="w-full bg-carbon-950 border border-white/[0.08] rounded-lg pl-8 pr-3 py-1.5 text-xs text-white placeholder-carbon-500 focus:outline-none focus:border-amber-500"
+          class="w-full bg-black/60 border border-white/[0.08] rounded-full pl-9 pr-3 py-1.5 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-white/30"
         />
       </div>
     </div>
@@ -126,16 +126,16 @@ async function handleIncrement(item: UserLibraryItem) {
     <!-- Empty State -->
     <div
       v-if="libraryStore.filteredItems.length === 0"
-      class="text-center py-14 px-4 bg-carbon-900/50 border border-white/[0.06] rounded-2xl"
+      class="text-center py-16 px-4 bg-[#121316]/50 border border-white/[0.06] rounded-[24px]"
     >
-      <Layers class="w-8 h-8 text-carbon-600 mx-auto mb-2.5" />
-      <h3 class="text-sm font-medium text-carbon-200">No titles match this filter</h3>
-      <p class="text-xs text-carbon-400 mt-1 max-w-sm mx-auto">
+      <Layers class="w-10 h-10 text-zinc-600 mx-auto mb-3" />
+      <h3 class="text-sm font-semibold text-zinc-200">No titles match this filter</h3>
+      <p class="text-xs text-zinc-400 mt-1 max-w-sm mx-auto">
         Switch category tabs or search the catalog to track new media.
       </p>
       <router-link
         to="/discover"
-        class="inline-flex items-center gap-1.5 mt-3.5 px-3 py-1.5 bg-carbon-800 hover:bg-carbon-700 text-carbon-200 border border-white/[0.08] text-xs font-medium rounded-lg transition-colors"
+        class="inline-flex items-center gap-1.5 mt-4 px-4 py-2 bg-[#16171B] hover:bg-[#202227] text-white border border-white/[0.08] text-xs font-semibold rounded-full transition-colors"
       >
         <Search class="w-3.5 h-3.5" />
         <span>Search catalog</span>
@@ -143,7 +143,7 @@ async function handleIncrement(item: UserLibraryItem) {
     </div>
 
     <!-- Media Grid -->
-    <div v-else class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+    <div v-else class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
       <MediaCard
         v-for="item in libraryStore.filteredItems"
         :key="item.id"

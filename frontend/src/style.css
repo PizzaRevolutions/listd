@@ -4,16 +4,17 @@
 
 @layer base {
   body {
-    background-color: #090B0F;
-    color: #E6E8EC;
+    background-color: #000000;
+    color: #FFFFFF;
     font-family: Inter, system-ui, -apple-system, sans-serif;
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
   }
 }
 
-/* Hide scrollbar for category bars while keeping scroll functional */
+/* Hide scrollbar for category bars and carousels while keeping scroll functional */
 .scrollbar-none::-webkit-scrollbar {
   display: none;
 }

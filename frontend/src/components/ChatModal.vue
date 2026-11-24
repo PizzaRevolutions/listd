@@ -79,28 +79,28 @@ async function handleQuickAdd(media: MediaItem) {
 <template>
   <div
     v-if="isOpen && friend"
-    class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-sm"
+    class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md"
     @click.self="emit('close')"
   >
     <div
-      class="relative w-full max-w-lg h-[80vh] bg-carbon-900 border border-white/[0.1] rounded-2xl shadow-2xl flex flex-col overflow-hidden"
+      class="relative w-full max-w-lg h-[80vh] bg-[#121316] border border-white/[0.08] rounded-[24px] shadow-2xl flex flex-col overflow-hidden"
     >
       <!-- Chat Header -->
-      <div class="p-3.5 bg-carbon-950 border-b border-white/[0.08] flex items-center justify-between shrink-0">
-        <div class="flex items-center gap-2.5">
-          <div class="w-8 h-8 rounded-lg bg-carbon-800 border border-white/[0.08] flex items-center justify-center text-xs font-medium text-carbon-200 uppercase">
+      <div class="p-4 bg-black/50 border-b border-white/[0.06] flex items-center justify-between shrink-0">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-full bg-black border border-white/[0.1] flex items-center justify-center text-xs font-bold text-white uppercase ring-1 ring-white/10">
             {{ friend.username.charAt(0) }}
           </div>
           <div>
-            <h3 class="font-medium text-xs text-white">{{ friend.username }}</h3>
-            <span class="text-[10px] text-carbon-400 block font-mono">
+            <h3 class="font-bold text-xs sm:text-sm text-white">{{ friend.username }}</h3>
+            <span class="text-[10px] text-zinc-400 block font-mono">
               Direct connection
             </span>
           </div>
         </div>
 
         <button
-          class="p-1.5 text-carbon-400 hover:text-white rounded-lg hover:bg-carbon-800 transition-colors"
+          class="p-2 text-zinc-400 hover:text-white rounded-full hover:bg-white/10 transition-colors"
           @click="emit('close')"
         >
           <X class="w-4 h-4" />
@@ -108,10 +108,10 @@ async function handleQuickAdd(media: MediaItem) {
       </div>
 
       <!-- Messages Stream -->
-      <div ref="messagesContainer" class="flex-1 p-4 overflow-y-auto space-y-3">
-        <div v-if="currentMessages.length === 0" class="h-full flex flex-col items-center justify-center text-center p-6 text-carbon-500">
-          <p class="text-xs text-carbon-400">Direct message channel with {{ friend.username }}</p>
-          <p class="text-[11px] text-carbon-500 mt-1 max-w-xs">
+      <div ref="messagesContainer" class="flex-1 p-4 overflow-y-auto space-y-3.5">
+        <div v-if="currentMessages.length === 0" class="h-full flex flex-col items-center justify-center text-center p-6 text-zinc-500">
+          <p class="text-xs text-zinc-300 font-medium">Direct message channel with {{ friend.username }}</p>
+          <p class="text-[11px] text-zinc-500 mt-1 max-w-xs">
             Send titles, compare what you're watching, or exchange recommendations.
           </p>
         </div>
@@ -124,11 +124,11 @@ async function handleQuickAdd(media: MediaItem) {
         >
           <!-- Chat Bubble -->
           <div
-            class="max-w-[85%] rounded-xl p-3 text-xs leading-relaxed"
+            class="max-w-[85%] rounded-[20px] p-3.5 text-xs leading-relaxed"
             :class="[
               msg.senderId === authStore.user?.id
-                ? 'bg-carbon-800 text-carbon-100 border border-white/[0.1] rounded-tr-none'
-                : 'bg-carbon-950 border border-white/[0.06] text-carbon-200 rounded-tl-none'
+                ? 'bg-white/15 text-white border border-white/[0.1] rounded-tr-none'
+                : 'bg-black/60 border border-white/[0.06] text-zinc-200 rounded-tl-none'
             ]"
           >
             <!-- Message Content -->
@@ -137,20 +137,20 @@ async function handleQuickAdd(media: MediaItem) {
             <!-- Embedded Interactive Media Card -->
             <div
               v-if="msg.mediaItem"
-              class="mt-2.5 p-2 bg-carbon-900 border border-white/[0.08] rounded-lg overflow-hidden flex gap-2.5 items-center cursor-pointer hover:border-white/[0.2] transition-colors"
+              class="mt-2.5 p-2 bg-[#16171B] border border-white/[0.08] rounded-2xl overflow-hidden flex gap-2.5 items-center cursor-pointer hover:border-white/[0.2] transition-colors"
               @click="emit('select-media', msg.mediaItem)"
             >
               <img
                 v-if="msg.mediaItem.posterUrl"
                 :src="msg.mediaItem.posterUrl"
                 :alt="msg.mediaItem.title"
-                class="w-10 h-14 object-cover rounded shrink-0 shadow-sm"
+                class="w-10 h-14 object-cover rounded-xl shrink-0 shadow-sm"
               />
               <div class="flex-1 min-w-0">
-                <span class="text-[9px] font-mono text-carbon-400 uppercase tracking-wider block">
+                <span class="text-[9px] font-mono text-zinc-400 uppercase tracking-wider block">
                   {{ msg.mediaItem.mediaType }}
                 </span>
-                <h4 class="text-xs font-medium text-white truncate">
+                <h4 class="text-xs font-semibold text-white truncate">
                   {{ msg.mediaItem.title }}
                 </h4>
                 <div class="flex items-center gap-1.5 mt-1.5">
@@ -160,7 +160,7 @@ async function handleQuickAdd(media: MediaItem) {
                     compact
                   />
                   <button
-                    class="px-2 py-0.5 text-[10px] font-medium bg-carbon-800 hover:bg-carbon-700 text-carbon-200 border border-white/[0.08] rounded transition-colors flex items-center gap-0.5"
+                    class="px-2 py-0.5 text-[10px] font-semibold bg-white text-black hover:bg-zinc-200 rounded-full transition-colors flex items-center gap-0.5"
                     title="Add to library"
                     @click.stop="handleQuickAdd(msg.mediaItem)"
                   >
@@ -173,7 +173,7 @@ async function handleQuickAdd(media: MediaItem) {
           </div>
 
           <!-- Timestamp -->
-          <span class="text-[10px] font-mono text-carbon-500 mt-1 px-1">
+          <span class="text-[10px] font-mono text-zinc-500 mt-1 px-1">
             {{ new Date(msg.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }}
           </span>
         </div>
@@ -181,19 +181,19 @@ async function handleQuickAdd(media: MediaItem) {
 
       <!-- Message Input Form -->
       <form
-        class="p-2.5 bg-carbon-950 border-t border-white/[0.08] flex items-center gap-2 shrink-0"
+        class="p-3 bg-black/60 border-t border-white/[0.06] flex items-center gap-2 shrink-0"
         @submit.prevent="handleSendMessage"
       >
         <input
           v-model="messageInput"
           type="text"
           placeholder="Message..."
-          class="flex-1 bg-carbon-900 border border-white/[0.08] rounded-lg px-3 py-2 text-xs text-white placeholder-carbon-500 focus:outline-none focus:border-amber-500"
+          class="flex-1 bg-[#16171B] border border-white/[0.08] rounded-full px-4 py-2 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-white/30"
         />
         <button
           type="submit"
           :disabled="!messageInput.trim()"
-          class="p-2 bg-carbon-100 hover:bg-white disabled:opacity-40 text-carbon-950 rounded-lg transition-colors"
+          class="p-2.5 bg-white hover:bg-zinc-200 disabled:opacity-40 text-black rounded-full transition-colors"
         >
           <Send class="w-3.5 h-3.5" />
         </button>

@@ -135,56 +135,56 @@ function handleAdd(media: Partial<MediaItem>) {
 </script>
 
 <template>
-  <div class="space-y-6 pb-16">
+  <div class="space-y-6 pb-20">
     <!-- Header -->
-    <div>
-      <h1 class="text-xl sm:text-2xl font-semibold text-white tracking-tight">
+    <div class="px-1">
+      <h1 class="text-2xl font-bold text-white tracking-tight">
         Discover
       </h1>
-      <p class="text-xs text-carbon-400 mt-0.5">
-        Query TMDB, AniList, RAWG and Apple Music standard catalogs
+      <p class="text-xs text-zinc-400 mt-0.5">
+        Explore movies, TV, anime, manga, games, and music catalogs
       </p>
     </div>
 
-    <!-- Category selector tabs -->
-    <div class="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
+    <!-- Category selector pills -->
+    <div class="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none -mx-4 px-4 sm:mx-0 sm:px-0">
       <button
         v-for="cat in categories"
         :key="cat.key"
-        class="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors border"
+        class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-all border active:scale-95"
         :class="[
           activeCategory === cat.key
-            ? 'bg-carbon-800 text-white border-white/[0.12]'
-            : 'bg-carbon-900 border-white/[0.06] text-carbon-400 hover:text-white hover:bg-carbon-850'
+            ? 'bg-white text-black border-white'
+            : 'bg-[#16171B] border-white/[0.08] text-zinc-400 hover:text-white hover:bg-[#202227]'
         ]"
         @click="activeCategory = cat.key"
       >
-        <component :is="cat.icon" class="w-3.5 h-3.5 text-carbon-400" />
+        <component :is="cat.icon" class="w-3.5 h-3.5" />
         <span>{{ cat.label }}</span>
       </button>
     </div>
 
-    <!-- Live Search Input -->
+    <!-- Live Search Input Pill -->
     <div class="relative">
-      <Search class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-carbon-500" />
+      <Search class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
       <input
         v-model="searchQuery"
         type="text"
         :placeholder="categories.find(c => c.key === activeCategory)?.placeholder"
-        class="w-full bg-carbon-900 border border-white/[0.08] focus:border-amber-500/80 rounded-xl pl-10 pr-10 py-2.5 text-xs text-white placeholder-carbon-500 focus:outline-none transition-colors"
+        class="w-full bg-[#121316] border border-white/[0.08] focus:border-white/30 rounded-full pl-11 pr-11 py-3 text-xs sm:text-sm text-white placeholder-zinc-500 focus:outline-none transition-colors shadow-lg"
       />
-      <div v-if="isSearching" class="absolute right-3.5 top-1/2 -translate-y-1/2">
-        <Loader2 class="w-4 h-4 text-carbon-400 animate-spin" />
+      <div v-if="isSearching" class="absolute right-4 top-1/2 -translate-y-1/2">
+        <Loader2 class="w-4 h-4 text-zinc-400 animate-spin" />
       </div>
     </div>
 
     <!-- Search Results Grid -->
     <div>
-      <div v-if="searchResults.length === 0 && !isSearching" class="text-center py-14 text-carbon-500 text-xs">
+      <div v-if="searchResults.length === 0 && !isSearching" class="text-center py-16 text-zinc-500 text-xs">
         No results found
       </div>
 
-      <div v-else class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+      <div v-else class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
         <MediaCard
           v-for="media in searchResults"
           :key="media.externalId"

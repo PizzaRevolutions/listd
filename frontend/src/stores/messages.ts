@@ -10,6 +10,7 @@ export const useMessagesStore = defineStore('messages', () => {
   const messages = ref<Record<string, DirectMessage[]>>({}); // keyed by friendId
   const activeChatFriendId = ref<string | null>(null);
   const isTyping = ref<Record<string, boolean>>({});
+  const unreadCount = ref<number>(1); // Default indicator for UI notifications
 
   function initSocket(token: string) {
     if (socket.value) {
@@ -32,6 +33,9 @@ export const useMessagesStore = defineStore('messages', () => {
         messages.value[friendId] = [];
       }
       messages.value[friendId].push(message);
+      if (activeChatFriendId.value !== friendId) {
+        unreadCount.value++;
+      }
     });
 
     socket.value.on('user_typing', ({ senderId, isTyping: typing }: { senderId: string; isTyping: boolean }) => {
@@ -44,6 +48,7 @@ export const useMessagesStore = defineStore('messages', () => {
     try {
       const res = await apiClient.get<{ messages: DirectMessage[] }>(`/messages/${friendId}`);
       messages.value[friendId] = res.data.messages;
+      unreadCount.value = Math.max(0, unreadCount.value - 1);
     } catch (err) {
       console.warn('Failed to fetch messages', err);
     }
@@ -80,6 +85,7 @@ export const useMessagesStore = defineStore('messages', () => {
     messages,
     activeChatFriendId,
     isTyping,
+    unreadCount,
     initSocket,
     fetchMessages,
     sendMessage,

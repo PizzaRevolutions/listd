@@ -16,9 +16,9 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-dark-bg text-gray-100 flex flex-col">
+  <div class="min-h-screen bg-black text-white flex flex-col selection:bg-zinc-800">
     <Navbar />
-    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-20 md:pb-8">
+    <main class="flex-1 max-w-4xl w-full mx-auto px-4 sm:px-6 pt-2 pb-28">
       <router-view />
     </main>
   </div>
