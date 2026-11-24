@@ -1,0 +1,32 @@
+{
+  "name": "listd",
+  "version": "1.0.0",
+  "description": "Unified Cross-Platform Media Tracking Application (Movies, TV, Anime, Manga, Games, Music)",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "dev:backend": "npm.cmd --prefix backend run dev",
+    "dev:frontend": "npm.cmd --prefix frontend run dev",
+    "build:backend": "npm.cmd --prefix backend run build",
+    "build:frontend": "npm.cmd --prefix frontend run build",
+    "lint": "npm.cmd --prefix backend run lint && npm.cmd --prefix frontend run lint"
+  },
+  "keywords": [
+    "media-tracker",
+    "anime",
+    "manga",
+    "movies",
+    "tv-shows",
+    "games",
+    "music",
+    "vue3",
+    "fastify",
+    "prisma",
+    "capacitor"
+  ],
+  "author": "Listd Team",
+  "license": "MIT"
+}
