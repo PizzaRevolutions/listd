@@ -251,7 +251,7 @@ async function handleIncrement(item: UserLibraryItem) {
     </section>
 
     <!-- ================= DESKTOP HERO BANNER (>= md) ================= -->
-    <section class="hidden md:flex items-center justify-between p-6 bg-[#121316] border border-white/[0.08] rounded-[26px] shadow-2xl">
+    <section class="hidden md:flex items-center justify-between p-6 bg-[#121316] border border-white/[0.08] rounded-[22px]">
       <div class="flex items-center gap-5">
         <div class="relative group cursor-pointer" @click="router.push('/library')">
           <div class="w-20 h-20 rounded-full ring-2 ring-white/20 hover:ring-white/50 overflow-hidden bg-black p-0.5 shadow-xl transition-transform group-hover:scale-105">
@@ -432,7 +432,7 @@ async function handleIncrement(item: UserLibraryItem) {
         <div
           v-for="disc in discussions"
           :key="disc.id"
-          class="bg-[#121316] border border-white/[0.06] hover:border-white/[0.18] rounded-[24px] p-5 flex flex-col justify-between transition-all duration-200 cursor-pointer hover:-translate-y-0.5 group shadow-lg"
+          class="bg-[#121316] border border-white/[0.06] hover:border-white/[0.14] rounded-[22px] p-5 flex flex-col justify-between transition-colors duration-150 cursor-pointer group"
           @click="router.push('/social')"
         >
           <div class="space-y-3">

@@ -95,7 +95,7 @@ async function handleQuickAdd(media: MediaItem) {
     </div>
 
     <!-- Add Friend Form -->
-    <div class="p-5 bg-[#121316] border border-white/[0.08] rounded-[22px] max-w-xl shadow-lg">
+    <div class="p-5 bg-[#121316] border border-white/[0.08] rounded-[22px] max-w-xl">
       <h3 class="text-xs font-semibold text-white flex items-center gap-1.5 mb-3">
         <UserPlus class="w-4 h-4 text-zinc-400" />
         Connect with friends
@@ -110,7 +110,7 @@ async function handleQuickAdd(media: MediaItem) {
         <button
           type="submit"
           :disabled="!newFriendUsername.trim() || addFriendLoading"
-          class="px-5 py-2 bg-white hover:bg-zinc-200 disabled:opacity-40 text-black text-xs font-semibold rounded-full transition-all active:scale-95 shrink-0"
+          class="px-5 py-2 bg-white hover:bg-zinc-200 disabled:opacity-40 text-black text-xs font-semibold rounded-full transition-colors duration-150 shrink-0"
         >
           {{ addFriendLoading ? 'Sending...' : 'Send request' }}
         </button>
@@ -133,14 +133,14 @@ async function handleQuickAdd(media: MediaItem) {
       </div>
 
       <div v-if="socialStore.friends.length === 0" class="text-center py-12 p-4 bg-[#121316]/50 border border-white/[0.06] rounded-[22px] text-zinc-400 text-xs">
-        No contacts added yet. Search a username above to start comparing libraries!
+        No contacts added yet. Search a username above to start comparing libraries.
       </div>
 
       <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
         <div
           v-for="friend in socialStore.friends"
           :key="friend.friendshipId"
-          class="p-4 bg-[#121316] border border-white/[0.08] hover:border-white/[0.16] rounded-[22px] flex flex-col justify-between gap-3.5 transition-all shadow-md"
+          class="p-4 bg-[#121316] border border-white/[0.08] hover:border-white/[0.16] rounded-[22px] flex flex-col justify-between gap-3.5 transition-colors duration-150"
         >
           <!-- User info -->
           <div class="flex items-center justify-between">
@@ -185,14 +185,14 @@ async function handleQuickAdd(media: MediaItem) {
           <!-- Accepted actions -->
           <div v-if="friend.status === 'ACCEPTED'" class="flex items-center gap-2 pt-3 border-t border-white/[0.06]">
             <button
-              class="flex-1 py-1.5 px-3 text-xs font-semibold bg-[#16171B] hover:bg-[#22242A] text-white border border-white/[0.08] rounded-full transition-colors flex items-center justify-center gap-1.5 active:scale-95"
+              class="flex-1 py-1.5 px-3 text-xs font-semibold bg-[#16171B] hover:bg-[#22242A] text-white border border-white/[0.08] rounded-full transition-colors duration-150 flex items-center justify-center gap-1.5"
               @click="handleCompare(friend.user.id)"
             >
               <GitCompare class="w-3 h-3 text-zinc-400" />
               <span>Compare</span>
             </button>
             <button
-              class="py-1.5 px-3 text-xs font-semibold bg-white/10 hover:bg-white/20 text-white rounded-full transition-colors flex items-center gap-1.5 active:scale-95"
+              class="py-1.5 px-3 text-xs font-semibold bg-white/10 hover:bg-white/20 text-white rounded-full transition-colors duration-150 flex items-center gap-1.5"
               @click="openChat(friend.user)"
             >
               <MessageSquare class="w-3 h-3" />
@@ -204,7 +204,7 @@ async function handleQuickAdd(media: MediaItem) {
     </div>
 
     <!-- Library Comparison Results ("Friend Diff Engine") -->
-    <div v-if="socialStore.comparisonData" class="space-y-4 p-5 bg-[#121316] border border-white/[0.08] rounded-[24px] shadow-2xl">
+    <div v-if="socialStore.comparisonData" class="space-y-4 p-5 bg-[#121316] border border-white/[0.08] rounded-[22px]">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-white/[0.06]">
         <div>
           <span class="text-[10px] font-mono uppercase tracking-wider text-zinc-400 block">Diff Analysis</span>

@@ -54,7 +54,7 @@ function handleLogout() {
         <!-- Left: "+ Add to your list" Pill Button -->
         <router-link
           to="/discover"
-          class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#16171B] hover:bg-[#202227] border border-white/[0.08] hover:border-white/[0.16] text-xs font-medium text-white transition-all shadow-sm active:scale-95"
+          class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#16171B] hover:bg-[#202227] border border-white/[0.08] hover:border-white/[0.16] text-xs font-medium text-white transition-colors duration-150"
         >
           <Plus class="w-3.5 h-3.5 text-zinc-300" />
           <span>Add to your list</span>
@@ -65,7 +65,7 @@ function handleLogout() {
           to="/" 
           class="flex items-center group select-none -ml-3"
         >
-          <span class="text-2xl font-black tracking-tighter text-white font-sans transition-transform group-hover:scale-105">
+          <span class="text-2xl font-black tracking-tighter text-white font-sans transition-opacity group-hover:opacity-90">
             Ld.
           </span>
         </router-link>
@@ -73,7 +73,7 @@ function handleLogout() {
         <!-- Right: Mobile Bell Notification -->
         <button
           type="button"
-          class="relative p-2 rounded-full hover:bg-white/10 text-white transition-colors active:scale-90"
+          class="relative p-2 rounded-full hover:bg-white/10 text-white transition-colors duration-150"
           title="Notifications"
           @click="showNotifications = !showNotifications"
         >
@@ -91,7 +91,7 @@ function handleLogout() {
         <!-- Left: Logo + Quick Search Trigger -->
         <div class="flex items-center gap-6">
           <router-link to="/" class="flex items-center gap-2 group select-none">
-            <span class="text-3xl font-black tracking-tighter text-white font-sans transition-transform group-hover:scale-105">
+            <span class="text-3xl font-black tracking-tighter text-white font-sans transition-opacity group-hover:opacity-90">
               Ld.
             </span>
           </router-link>
@@ -99,7 +99,7 @@ function handleLogout() {
           <!-- Desktop Search Pill -->
           <router-link
             to="/discover"
-            class="flex items-center gap-2.5 px-4 py-2 bg-[#121316] hover:bg-[#1A1B20] border border-white/[0.08] hover:border-white/[0.16] rounded-full text-xs text-zinc-400 hover:text-zinc-200 transition-colors w-64 shadow-inner"
+            class="flex items-center gap-2.5 px-4 py-2 bg-[#121316] hover:bg-[#1A1B20] border border-white/[0.08] hover:border-white/[0.16] rounded-full text-xs text-zinc-400 hover:text-zinc-200 transition-colors duration-150 w-64"
           >
             <Search class="w-3.5 h-3.5 text-zinc-400" />
             <span>Search catalog & titles...</span>
@@ -107,15 +107,15 @@ function handleLogout() {
         </div>
 
         <!-- Center: Desktop Navigation Links (Pill Tabs) -->
-        <nav class="flex items-center gap-1.5 bg-[#121316] border border-white/[0.06] p-1.5 rounded-full shadow-lg">
+        <nav class="flex items-center gap-1.5 bg-[#121316] border border-white/[0.06] p-1.5 rounded-full">
           <router-link
             v-for="link in desktopNavLinks"
             :key="link.path"
             :to="link.path"
-            class="flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-200"
+            class="flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold transition-colors duration-150"
             :class="[
               route.path === link.path
-                ? 'bg-white text-black shadow-sm'
+                ? 'bg-white text-black'
                 : 'text-zinc-400 hover:text-white hover:bg-white/5'
             ]"
           >
@@ -130,7 +130,7 @@ function handleLogout() {
           <!-- "+ Add to your list" Button on Desktop -->
           <router-link
             to="/discover"
-            class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white text-black hover:bg-zinc-200 text-xs font-semibold transition-all shadow-md active:scale-95"
+            class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white text-black hover:bg-zinc-200 text-xs font-semibold transition-colors duration-150"
           >
             <Plus class="w-3.5 h-3.5" />
             <span>Add to list</span>
@@ -140,7 +140,7 @@ function handleLogout() {
           <div class="relative">
             <button
               type="button"
-              class="relative p-2 rounded-full hover:bg-white/10 text-white transition-colors active:scale-90"
+              class="relative p-2 rounded-full hover:bg-white/10 text-white transition-colors duration-150"
               title="Notifications"
               @click="showNotifications = !showNotifications"
             >
@@ -157,7 +157,7 @@ function handleLogout() {
             <button
               v-if="authStore.isAuthenticated"
               type="button"
-              class="flex items-center gap-2.5 pl-2 pr-3 py-1 bg-[#121316] hover:bg-[#1A1B20] border border-white/[0.08] rounded-full transition-colors active:scale-95"
+              class="flex items-center gap-2.5 pl-2 pr-3 py-1 bg-[#121316] hover:bg-[#1A1B20] border border-white/[0.08] rounded-full transition-colors duration-150"
               @click="showProfileMenu = !showProfileMenu"
             >
               <img
@@ -174,13 +174,13 @@ function handleLogout() {
             <div v-else class="flex items-center gap-2">
               <router-link
                 to="/login"
-                class="px-3.5 py-1.5 text-xs text-zinc-300 hover:text-white transition-colors font-medium"
+                class="px-3.5 py-1.5 text-xs text-zinc-300 hover:text-white transition-colors duration-150 font-medium"
               >
                 Sign in
               </router-link>
               <router-link
                 to="/register"
-                class="px-4 py-1.5 text-xs font-semibold bg-white/10 hover:bg-white/20 text-white rounded-full transition-colors border border-white/[0.08]"
+                class="px-4 py-1.5 text-xs font-semibold bg-white/10 hover:bg-white/20 text-white rounded-full transition-colors duration-150 border border-white/[0.08]"
               >
                 Register
               </router-link>
@@ -189,7 +189,7 @@ function handleLogout() {
             <!-- Profile Menu Dropdown on Desktop -->
             <div
               v-if="showProfileMenu"
-              class="absolute right-0 top-11 w-52 bg-[#121316] border border-white/[0.1] rounded-2xl p-2 shadow-2xl z-50 animate-in fade-in zoom-in-95 duration-150"
+              class="absolute right-0 top-11 w-52 bg-[#121316] border border-white/[0.1] rounded-2xl p-2 shadow-xl z-50 animate-in fade-in zoom-in-95 duration-100"
             >
               <div v-if="authStore.isAuthenticated" class="px-3 py-2 border-b border-white/[0.06] mb-1">
                 <p class="text-xs font-semibold text-white truncate">{{ authStore.user?.username }}</p>
@@ -198,7 +198,7 @@ function handleLogout() {
               <div v-if="authStore.isAuthenticated">
                 <router-link
                   to="/library"
-                  class="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs text-zinc-300 hover:text-white hover:bg-white/5 transition-colors"
+                  class="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs text-zinc-300 hover:text-white hover:bg-white/5 transition-colors duration-150"
                   @click="showProfileMenu = false"
                 >
                   <List class="w-3.5 h-3.5" />
@@ -206,14 +206,14 @@ function handleLogout() {
                 </router-link>
                 <router-link
                   to="/social"
-                  class="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs text-zinc-300 hover:text-white hover:bg-white/5 transition-colors"
+                  class="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs text-zinc-300 hover:text-white hover:bg-white/5 transition-colors duration-150"
                   @click="showProfileMenu = false"
                 >
                   <Users class="w-3.5 h-3.5" />
                   <span>Friend Comparison</span>
                 </router-link>
                 <button
-                  class="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs text-rose-400 hover:bg-rose-500/10 transition-colors mt-1"
+                  class="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs text-rose-400 hover:bg-rose-500/10 transition-colors duration-150 mt-1"
                   @click="handleLogout"
                 >
                   <LogOut class="w-3.5 h-3.5" />
@@ -231,11 +231,11 @@ function handleLogout() {
       <!-- Notifications Dropdown (Shared) -->
       <div
         v-if="showNotifications"
-        class="absolute right-4 sm:right-6 lg:right-8 top-14 w-80 bg-[#121316] border border-white/[0.1] rounded-2xl p-4 shadow-2xl z-50 animate-in fade-in zoom-in-95 duration-150"
+        class="absolute right-4 sm:right-6 lg:right-8 top-14 w-80 bg-[#121316] border border-white/[0.1] rounded-2xl p-4 shadow-xl z-50 animate-in fade-in zoom-in-95 duration-100"
       >
         <div class="flex items-center justify-between pb-2 border-b border-white/[0.06] mb-3">
           <span class="text-xs font-semibold text-white tracking-wide uppercase">Notifications</span>
-          <button @click="showNotifications = false" class="text-zinc-400 hover:text-white">
+          <button @click="showNotifications = false" class="text-zinc-400 hover:text-white transition-colors duration-150">
             <X class="w-4 h-4" />
           </button>
         </div>
@@ -256,12 +256,12 @@ function handleLogout() {
 
   <!-- ================= MOBILE ONLY: FLOATING BOTTOM DOCK (< md) ================= -->
   <div class="md:hidden fixed bottom-4 inset-x-0 z-50 flex justify-center px-4 pointer-events-none">
-    <nav class="pointer-events-auto bg-[#121316]/95 backdrop-blur-xl border border-white/[0.08] shadow-[0_8px_32px_rgba(0,0,0,0.8)] rounded-full px-3 py-2 flex items-center justify-between gap-1 max-w-sm w-full">
+    <nav class="pointer-events-auto bg-[#121316]/95 backdrop-blur-xl border border-white/[0.08] rounded-full px-3 py-2 flex items-center justify-between gap-1 max-w-sm w-full">
       
       <!-- 1. Home / Dashboard -->
       <router-link
         to="/"
-        class="flex items-center justify-center transition-all duration-200"
+        class="flex items-center justify-center transition-colors duration-150"
         :class="[
           route.path === '/'
             ? 'bg-white text-black rounded-full px-3.5 py-1.5'
@@ -275,7 +275,7 @@ function handleLogout() {
       <!-- 2. Community / Friends -->
       <router-link
         to="/social"
-        class="flex items-center justify-center transition-all duration-200"
+        class="flex items-center justify-center transition-colors duration-150"
         :class="[
           route.path === '/social'
             ? 'bg-white text-black rounded-full px-3.5 py-1.5'
@@ -289,7 +289,7 @@ function handleLogout() {
       <!-- 3. Search / Discover -->
       <router-link
         to="/discover"
-        class="flex items-center justify-center transition-all duration-200"
+        class="flex items-center justify-center transition-colors duration-150"
         :class="[
           route.path === '/discover'
             ? 'bg-white text-black rounded-full px-3.5 py-1.5'
@@ -303,7 +303,7 @@ function handleLogout() {
       <!-- 4. Library / Lists -->
       <router-link
         to="/library"
-        class="flex items-center justify-center transition-all duration-200"
+        class="flex items-center justify-center transition-colors duration-150"
         :class="[
           route.path === '/library'
             ? 'bg-white text-black rounded-full px-3.5 py-1.5'
@@ -318,7 +318,7 @@ function handleLogout() {
       <div class="relative">
         <button
           type="button"
-          class="flex items-center justify-center p-0.5 rounded-full transition-transform active:scale-95"
+          class="flex items-center justify-center p-0.5 rounded-full transition-colors duration-150"
           :class="[
             showProfileMenu ? 'ring-2 ring-white' : 'ring-1 ring-white/20 hover:ring-white/50'
           ]"
@@ -335,7 +335,7 @@ function handleLogout() {
         <!-- Profile Menu Dropdown Mobile -->
         <div
           v-if="showProfileMenu"
-          class="absolute bottom-12 right-0 w-48 bg-[#121316] border border-white/[0.1] rounded-2xl p-2 shadow-2xl z-50 animate-in fade-in slide-in-from-bottom-2 duration-150"
+          class="absolute bottom-12 right-0 w-48 bg-[#121316] border border-white/[0.1] rounded-2xl p-2 shadow-xl z-50 animate-in fade-in slide-in-from-bottom-2 duration-100"
         >
           <div v-if="authStore.isAuthenticated" class="px-3 py-2 border-b border-white/[0.06] mb-1">
             <p class="text-xs font-semibold text-white truncate">{{ authStore.user?.username }}</p>
@@ -343,7 +343,7 @@ function handleLogout() {
           </div>
           <div v-if="authStore.isAuthenticated">
             <button
-              class="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs text-rose-400 hover:bg-rose-500/10 transition-colors"
+              class="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs text-rose-400 hover:bg-rose-500/10 transition-colors duration-150"
               @click="handleLogout"
             >
               <LogOut class="w-3.5 h-3.5" />
@@ -353,14 +353,14 @@ function handleLogout() {
           <div v-else class="space-y-1">
             <router-link
               to="/login"
-              class="block px-3 py-2 rounded-xl text-xs text-white hover:bg-white/10 transition-colors"
+              class="block px-3 py-2 rounded-xl text-xs text-white hover:bg-white/10 transition-colors duration-150"
               @click="showProfileMenu = false"
             >
               Sign in
             </router-link>
             <router-link
               to="/register"
-              class="block px-3 py-2 rounded-xl text-xs text-white bg-white/10 hover:bg-white/20 transition-colors text-center font-medium"
+              class="block px-3 py-2 rounded-xl text-xs text-white bg-white/10 hover:bg-white/20 transition-colors duration-150 text-center font-medium"
               @click="showProfileMenu = false"
             >
               Register

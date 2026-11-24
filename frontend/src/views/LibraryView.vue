@@ -67,7 +67,7 @@ async function handleIncrement(item: UserLibraryItem) {
 
       <router-link
         to="/discover"
-        class="inline-flex items-center gap-1.5 px-4 py-2 bg-white text-black hover:bg-zinc-200 text-xs font-semibold rounded-full shadow-sm transition-all active:scale-95"
+        class="inline-flex items-center gap-1.5 px-4 py-2 bg-white text-black hover:bg-zinc-200 text-xs font-semibold rounded-full transition-colors duration-150"
       >
         <Plus class="w-3.5 h-3.5" />
         <span>Add title</span>
@@ -79,7 +79,7 @@ async function handleIncrement(item: UserLibraryItem) {
       <button
         v-for="cat in mediaCategories"
         :key="cat.type"
-        class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-all border active:scale-95"
+        class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-colors duration-150 border"
         :class="[
           libraryStore.selectedType === cat.type
             ? 'bg-white text-black border-white'

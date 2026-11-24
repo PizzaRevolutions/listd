@@ -161,7 +161,7 @@ function handleAdd(media: Partial<MediaItem>) {
       <button
         v-for="cat in categories"
         :key="cat.key"
-        class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-all border active:scale-95"
+        class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-colors duration-150 border"
         :class="[
           activeCategory === cat.key
             ? 'bg-white text-black border-white'
@@ -181,7 +181,7 @@ function handleAdd(media: Partial<MediaItem>) {
         v-model="searchQuery"
         type="text"
         :placeholder="categories.find(c => c.key === activeCategory)?.placeholder"
-        class="w-full bg-[#121316] border border-white/[0.08] focus:border-white/30 rounded-full pl-11 pr-11 py-3 text-xs sm:text-sm text-white placeholder-zinc-500 focus:outline-none transition-colors shadow-lg"
+        class="w-full bg-[#121316] border border-white/[0.08] focus:border-white/30 rounded-full pl-11 pr-11 py-2.5 text-xs sm:text-sm text-white placeholder-zinc-500 focus:outline-none transition-colors duration-150"
       />
       <div v-if="isSearching" class="absolute right-4 top-1/2 -translate-y-1/2">
         <Loader2 class="w-4 h-4 text-zinc-400 animate-spin" />
